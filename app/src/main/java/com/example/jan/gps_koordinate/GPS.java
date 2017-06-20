@@ -6,6 +6,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
@@ -28,7 +29,6 @@ public class GPS extends AppCompatActivity implements LocationListener, OnMapRea
     private GoogleMap mMap;
     private boolean mUpdate;
     private Marker marker;
-
     public GPS(TextView latitude, TextView longitude, MapFragment mapFragment, Context context){
         mLatitude = latitude;
         mLongitude = longitude;

@@ -18,8 +18,7 @@ public class DefibrilatorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.defibrilator);
-
-
+        setTitle("Defibrilator");
     }
 
     private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
