@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/button_kviz"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="256dp"
+        android:layout_height="128dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="90dp"
+        android:text="KVIZ"
+        android:textSize="36sp"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_zemljevid"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="256dp"
+        android:layout_height="128dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="10dp"
+        android:text="ZEMLJEVID"
+        android:textSize="36sp"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_kviz" />
+
+    <Button
+        android:id="@+id/button_defibrilator"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="256dp"
+        android:layout_height="128dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="6dp"
+        android:text="DEFIBRILATOR"
+        android:textSize="30sp"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_zemljevid" />
+
+</android.support.constraint.ConstraintLayout>
