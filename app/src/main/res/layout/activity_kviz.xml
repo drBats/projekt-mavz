@@ -18,7 +18,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:paddingBottom="20dp"
-        android:text="To je zelo dolgo besedilo, ki je del vprašanja na temo znanja o kapi. Zakaj je asdasdabdsfg dsfg sdgaertgrgdfs sdf asdf aee rts ertzdrtz?"
+        android:text="To je zelo dolgo besedilo, ki je del vprašanja na temo znanja o kapi. Zakaj je ?"
         android:textAlignment="viewStart"
         android:textAppearance="@android:style/TextAppearance.Large"
         app:layout_constraintLeft_toLeftOf="parent"
