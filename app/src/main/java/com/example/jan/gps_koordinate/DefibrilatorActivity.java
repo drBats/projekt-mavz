@@ -2,6 +2,8 @@ package com.example.jan.gps_koordinate;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.media.AudioRouting;
 import android.nfc.Tag;
 import android.os.Bundle;
@@ -10,10 +12,12 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.opencv.android.BaseLoaderCallback;
@@ -29,10 +33,16 @@ import org.opencv.android.OpenCVLoader;
 
 public class DefibrilatorActivity extends AppCompatActivity {
 
-    private ImageView levi,desni;
-    private int xDelta;
-    private int yDelta;
+    private TextView rez;
+    private ImageView levi,desni,leviPravilni,desniPravilni;
+    private int xDelta,yDelta,xLeviPad,yLeviPad,xDesniPad,yDesniPad;
+    private int leviX=341;
+    private int leviY=638;
+    private int desniX=641;
+    private int desniY=931;
     private static final String TAG = "MainActivity";
+    private Button izracunaj;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,11 +50,65 @@ public class DefibrilatorActivity extends AppCompatActivity {
         setTitle("Defibrilator");
         levi=(ImageView)findViewById(R.id.levi);
         desni=(ImageView)findViewById(R.id.desni);
+        leviPravilni=(ImageView)findViewById(R.id.leviPravilni);
+        desniPravilni=(ImageView)findViewById(R.id.desniPravilni);
+
+        rez=(TextView)findViewById(R.id.rezultat);
 
         levi.setOnTouchListener(onTouchListener());
         desni.setOnTouchListener(onTouchListener());
-        }
+        izracunaj = (Button) findViewById(R.id.koncano);
+        izracunaj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                leviPravilni.setVisibility(View.INVISIBLE);
+                desniPravilni.setVisibility(View.INVISIBLE);
+                rez.setText("");
+                xLeviPad=levi.getLeft();
+                yLeviPad=levi.getTop();
+                xDesniPad=desni.getLeft();
+                yDesniPad=desni.getTop();
 
+                double distance1 = Math.sqrt(Math.pow((leviX-xLeviPad), 2) + Math.pow((leviY-yLeviPad), 2));
+                if(distance1<60)
+                {
+
+                    levi.setBackgroundColor(Color.GREEN);
+                    rez.append("Leva elektroda: PRAVILNO\n");
+                }
+                else
+                {
+                    levi.setBackgroundColor(Color.RED);
+                    leviPravilni.setVisibility(View.VISIBLE);
+                    leviPravilni.setBackgroundColor(Color.GREEN);
+                    leviPravilni.setColorFilter(Color.WHITE);
+                    leviPravilni.setX(leviX);
+                    leviPravilni.setY(leviY);
+                    rez.append("Leva elektroda: NAPAČNO\n");
+                }
+                //rez.append("Leva elektroda oddaljena: "+Double.toString(distance1)+'\n');
+                distance1 = Math.sqrt(Math.pow((desniX-xDesniPad), 2) + Math.pow((desniY-yDesniPad), 2));
+                if(distance1<60)
+                {
+
+                    desni.setBackgroundColor(Color.GREEN);
+                    rez.append("Desna elektroda: PRAVILNO\n");
+                }
+                else
+                {
+                    desni.setBackgroundColor(Color.RED);
+                    desniPravilni.setVisibility(View.VISIBLE);
+                    desniPravilni.setBackgroundColor(Color.GREEN);
+                    desniPravilni.setColorFilter(Color.WHITE);
+                    desniPravilni.setX(desniX);
+                    desniPravilni.setY(desniY);
+                    rez.append("Desna elektroda: NAPAČNO\n");
+                }
+                //rez.append("Desna elektroda oddaljena: "+Double.toString(distance1)+'\n');
+            }
+        });
+        }
 
     private View.OnTouchListener onTouchListener() {
         return new View.OnTouchListener() {
@@ -74,23 +138,8 @@ public class DefibrilatorActivity extends AppCompatActivity {
         };
     }
 
-    private BaseLoaderCallback mOpenCVCallBack = new BaseLoaderCallback(this) {
-        @Override
-        public void onManagerConnected(int status) {
-            switch (status) {
-                case LoaderCallbackInterface.SUCCESS:
-                {
-                    Log.i(TAG, "OpenCV loaded successfully");
-                }
-                break;
-                default:
-                {
-                    super.onManagerConnected(status);
-                }
-                break;
-            }
-        }
-    };
+
+
     @Override
     public void onResume() {
         super.onResume();
@@ -103,31 +152,27 @@ public class DefibrilatorActivity extends AppCompatActivity {
         }
     }
 
+
+
     private void funkcija(){
         Mat imageMat = new Mat();
         Bitmap bMap = BitmapFactory.decodeResource(getResources(),R.drawable.body);
         ImageView image = (ImageView) findViewById(R.id.imageView);
         Utils.bitmapToMat(bMap,imageMat);
-        Imgproc.Laplacian(imageMat, imageMat, CvType.CV_8U, 3, 1, 0); //Laplaceov detektor robov za body
-        Utils.matToBitmap(imageMat,bMap);
+
         image.setImageBitmap(bMap);
 
         imageMat = new Mat();
         bMap = BitmapFactory.decodeResource(getResources(),R.drawable.leva);
         image = (ImageView) findViewById(R.id.levi);
         Utils.bitmapToMat(bMap,imageMat);
-        Imgproc.cvtColor(imageMat,imageMat,Imgproc.COLOR_RGB2GRAY,1); //pretvorimo v črno belo
-        Imgproc.GaussianBlur(imageMat,imageMat,new Size(3,3),1); //leva elektroda gauss
-        Utils.matToBitmap(imageMat,bMap);
+
         image.setImageBitmap(bMap);
 
         imageMat = new Mat();
         bMap = BitmapFactory.decodeResource(getResources(),R.drawable.desna);
         image = (ImageView) findViewById(R.id.desni);
         Utils.bitmapToMat(bMap,imageMat);
-        Imgproc.cvtColor(imageMat,imageMat,Imgproc.COLOR_RGB2GRAY,1); //pretvorimo v črno belo
-        Imgproc.GaussianBlur(imageMat,imageMat,new Size(3,3),1); //desna elektroda gauss
-        Utils.matToBitmap(imageMat,bMap);
         image.setImageBitmap(bMap);
     }
 }

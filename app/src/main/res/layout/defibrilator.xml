@@ -11,16 +11,35 @@
             <ImageView
                 android:id="@+id/levi"
                 android:layout_width="wrap_content"
-                android:layout_height="70dp"
+                android:layout_height="wrap_content"
+                android:padding="1dp"
                 app:srcCompat="@drawable/leva" />
 
             <ImageView
                 android:id="@+id/desni"
                 android:layout_width="wrap_content"
-                android:layout_height="70dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
+                android:padding="1dp"
                 app:srcCompat="@drawable/desna" />
 
+            <ImageView
+                android:id="@+id/leviPravilni"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="200dp"
+                android:visibility="invisible"
+                android:padding="1dp"
+                app:srcCompat="@drawable/leva" />
+
+            <ImageView
+                android:id="@+id/desniPravilni"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="250dp"
+                android:visibility="invisible"
+                android:padding="1dp"
+                app:srcCompat="@drawable/desna" />
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
@@ -28,9 +47,22 @@
             app:srcCompat="@drawable/body" />
     </android.support.v7.widget.ContentFrameLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
     <Button
+        android:id="@+id/koncano"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="0dp"
         android:text="Koncano" />
+
+        <TextView
+            android:id="@+id/rezultat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+
+    </LinearLayout>
 </LinearLayout>
