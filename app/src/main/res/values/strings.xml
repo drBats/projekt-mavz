@@ -1,3 +1,33 @@
 <resources>
     <string name="app_name">Znanje o kapi</string>
+
+    <string-array name="vprasanja">
+        <item>Kaj morate še napraviti, ko namestite kompresijsko obvezo na podlahti?</item>
+        <item>Pri delni zapori dihalne poti prizadetemu pomagate...</item>
+        <item>Najpogostejši vrok prometnih nezgod je...</item>
+        <item>V kakšnem položaju mora biti poškodovančeva glava pri umetnem dihanju?</item>
+        <item>Po veljavni zakonodaji poklicni ali mladi vozniki:</item>
+    </string-array>
+
+    <string-array name="odgovori">
+        <item>Na zapestju poškodovanega uda preverim utriš žile in ud imobiliziram.</item>
+        <item>Ud samo še imobiliziram.</item>
+        <item>Nič več.</item>
+
+        <item>Z udarci med lopaticama.</item>
+        <item>S Heimlichovim prijemom.</item>
+        <item>S spodbujanjem, da kašlja.</item>
+
+        <item>Slabo vzdrževano vozilo.</item>
+        <item>Človek sam (neprilagojena hitrost, vinjenost,...)</item>
+        <item>Slabe prometne razmere (vreme, noč)</item>
+
+        <item>Upognjena naprej.</item>
+        <item>V vodoravnem položaju.</item>
+        <item>Upognjena nazaj.</item>
+
+        <item>Ne smejo imeti alkohola v krvi.</item>
+        <item>Imajo lahko do 0,5 g alkohola na kg telesne teče v krvi.</item>
+        <item>Imajo lahko do 0,2 g alkohola na kg telesne teče v krvi.</item>
+    </string-array>
 </resources>
