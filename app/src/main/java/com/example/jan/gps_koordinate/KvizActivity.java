@@ -3,9 +3,11 @@ package com.example.jan.gps_koordinate;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -14,7 +16,8 @@ public class KvizActivity extends AppCompatActivity implements View.OnClickListe
     private TextView vprasanje;
     private Button odgA, odgB, odgC;
 
-    private Random rnd;
+    private int trenutnoVprasanje = 0;
+    private int stPravilnihOdgovorov = 0;
 
     private static int ST_VPRASANJ = 5;
     private static int ST_ODGOVOROV = 3;
@@ -33,17 +36,14 @@ public class KvizActivity extends AppCompatActivity implements View.OnClickListe
         odgB.setOnClickListener(this);
         odgC.setOnClickListener(this);
 
-        rnd = new Random();
-        int indeks = rnd.nextInt(ST_VPRASANJ);
-
-        pripraviVprasanje(indeks);
+        pripraviVprasanje(trenutnoVprasanje);
     }
 
     private void pripraviVprasanje(int indeks){
         String trenutnoVprasanje = this.getResources().getStringArray(R.array.vprasanja)[indeks];
-        String odgovorA = this.getResources().getStringArray(R.array.odgovori)[indeks * ST_ODGOVOROV];
-        String odgovorB = this.getResources().getStringArray(R.array.odgovori)[indeks * ST_ODGOVOROV + 1];
-        String odgovorC = this.getResources().getStringArray(R.array.odgovori)[indeks * ST_ODGOVOROV + 2];
+        String odgovorA = this.getResources().getStringArray(R.array.mozni_odgovori)[indeks * ST_ODGOVOROV];
+        String odgovorB = this.getResources().getStringArray(R.array.mozni_odgovori)[indeks * ST_ODGOVOROV + 1];
+        String odgovorC = this.getResources().getStringArray(R.array.mozni_odgovori)[indeks * ST_ODGOVOROV + 2];
 
         vprasanje.setText(trenutnoVprasanje);
         odgA.setText(odgovorA);
@@ -53,6 +53,23 @@ public class KvizActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        pripraviVprasanje(rnd.nextInt(ST_VPRASANJ));
+        Button b = (Button)v;
+        String odgovor = b.getText().toString();
+
+        if(odgovor.equals(getResources().getStringArray(R.array.resitve)[trenutnoVprasanje])){
+            stPravilnihOdgovorov++;
+        }
+
+        if(trenutnoVprasanje == ST_VPRASANJ - 1){
+            Toast.makeText(this, "Vaš rezultat: " + Math.round(((float)stPravilnihOdgovorov / ST_VPRASANJ) * 100) + "%", Toast.LENGTH_LONG).show();
+            trenutnoVprasanje = 0;
+            stPravilnihOdgovorov = 0;
+
+            pripraviVprasanje(trenutnoVprasanje);
+        }
+        else{
+            pripraviVprasanje(++trenutnoVprasanje);
+        }
+
     }
 }
