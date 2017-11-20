@@ -38,4 +38,5 @@
         <item>Upognjena nazaj.</item>
         <item>Ne smejo imeti alkohola v krvi.</item>
     </string-array>
+    <string name="title_activity_rezultati">rezultati</string>
 </resources>

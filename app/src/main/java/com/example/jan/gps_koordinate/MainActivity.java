@@ -9,7 +9,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnKviz, btnZemljevid, btnDefibrilator;
+    private Button btnKviz, btnZemljevid, btnDefibrilator, btnRezultati;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
         btnKviz = (Button) findViewById(R.id.button_kviz);
         btnZemljevid = (Button) findViewById(R.id.button_zemljevid);
         btnDefibrilator = (Button) findViewById(R.id.button_defibrilator);
+        btnRezultati = (Button) findViewById(R.id.button_rezultati);
 
         btnKviz.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,6 +41,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent defibrilator = new Intent(MainActivity.this, DefibrilatorActivity.class);
                 startActivity(defibrilator);
+            }
+        });
+
+        btnRezultati.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent rezultati = new Intent(MainActivity.this, rezultati.class);
+                startActivity(rezultati);
             }
         });
 
