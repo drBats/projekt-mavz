@@ -1,5 +1,6 @@
 package com.example.jan.gps_koordinate;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -7,7 +8,9 @@ import android.graphics.PorterDuff;
 import android.media.AudioRouting;
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.support.annotation.Dimension;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ContentFrameLayout;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -33,13 +36,11 @@ import org.opencv.android.OpenCVLoader;
 
 public class DefibrilatorActivity extends AppCompatActivity {
 
+    private FrameLayout layout;
     private TextView rez;
     private ImageView levi,desni,leviPravilni,desniPravilni;
     private int xDelta,yDelta,xLeviPad,yLeviPad,xDesniPad,yDesniPad;
-    private int leviX=341;
-    private int leviY=638;
-    private int desniX=641;
-    private int desniY=931;
+    private int leviX,leviY,desniX,desniY;
     private static final String TAG = "MainActivity";
     private Button izracunaj;
 
@@ -52,6 +53,7 @@ public class DefibrilatorActivity extends AppCompatActivity {
         desni=(ImageView)findViewById(R.id.desni);
         leviPravilni=(ImageView)findViewById(R.id.leviPravilni);
         desniPravilni=(ImageView)findViewById(R.id.desniPravilni);
+        layout=(FrameLayout)findViewById(R.id.frame);
 
         rez=(TextView)findViewById(R.id.rezultat);
 
@@ -70,21 +72,34 @@ public class DefibrilatorActivity extends AppCompatActivity {
                 xDesniPad=desni.getLeft();
                 yDesniPad=desni.getTop();
 
+                int sirina=layout.getWidth();
+                int visina=layout.getHeight();
+                double leftX1=31*sirina/100;
+                double gorY1=46*visina/100;
+                double leftX2=59.5*sirina/100;
+                double gorY2=66*visina/100;
+                leviX=(int)leftX1;
+                leviY=(int)gorY1;
+                desniX=(int)leftX2;
+                desniY=(int)gorY2;
+
                 double distance1 = Math.sqrt(Math.pow((leviX-xLeviPad), 2) + Math.pow((leviY-yLeviPad), 2));
                 if(distance1<60)
                 {
-
                     levi.setBackgroundColor(Color.GREEN);
                     rez.append("Leva elektroda: PRAVILNO\n");
                 }
                 else
                 {
+                    FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(leviPravilni.getWidth(),leviPravilni.getHeight());
+                    params.leftMargin=leviX;
+                    params.topMargin=leviY;
+
                     levi.setBackgroundColor(Color.RED);
+                    leviPravilni.setLayoutParams(params);
                     leviPravilni.setVisibility(View.VISIBLE);
                     leviPravilni.setBackgroundColor(Color.GREEN);
                     leviPravilni.setColorFilter(Color.WHITE);
-                    leviPravilni.setX(leviX);
-                    leviPravilni.setY(leviY);
                     rez.append("Leva elektroda: NAPAČNO\n");
                 }
                 //rez.append("Leva elektroda oddaljena: "+Double.toString(distance1)+'\n');
@@ -97,18 +112,28 @@ public class DefibrilatorActivity extends AppCompatActivity {
                 }
                 else
                 {
+                    FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(desniPravilni.getWidth(),desniPravilni.getHeight());
+                    params.leftMargin=desniX;
+                    params.topMargin=desniY;
                     desni.setBackgroundColor(Color.RED);
+                    desniPravilni.setLayoutParams(params);
                     desniPravilni.setVisibility(View.VISIBLE);
                     desniPravilni.setBackgroundColor(Color.GREEN);
                     desniPravilni.setColorFilter(Color.WHITE);
-                    desniPravilni.setX(desniX);
-                    desniPravilni.setY(desniY);
                     rez.append("Desna elektroda: NAPAČNO\n");
                 }
                 //rez.append("Desna elektroda oddaljena: "+Double.toString(distance1)+'\n');
             }
         });
         }
+
+    public static int getScreenWidth() {
+        return Resources.getSystem().getDisplayMetrics().widthPixels;
+    }
+
+    public static int getScreenHeight() {
+        return Resources.getSystem().getDisplayMetrics().heightPixels;
+    }
 
     private View.OnTouchListener onTouchListener() {
         return new View.OnTouchListener() {
