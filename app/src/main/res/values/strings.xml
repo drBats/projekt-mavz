@@ -9,8 +9,8 @@
         <item>Po veljavni zakonodaji poklicni ali mladi vozniki:</item>
     </string-array>
 
-    <string-array name="odgovori">
-        <item>Na zapestju poškodovanega uda preverim utriš žile in ud imobiliziram.</item>
+    <string-array name="mozni_odgovori">
+        <item>Na zapestju poškodovanega uda preverim utrip žile in ud imobiliziram.</item>
         <item>Ud samo še imobiliziram.</item>
         <item>Nič več.</item>
 
@@ -29,5 +29,13 @@
         <item>Ne smejo imeti alkohola v krvi.</item>
         <item>Imajo lahko do 0,5 g alkohola na kg telesne teče v krvi.</item>
         <item>Imajo lahko do 0,2 g alkohola na kg telesne teče v krvi.</item>
+    </string-array>
+
+    <string-array name="resitve">
+        <item>Ud samo še imobiliziram.</item>
+        <item>S spodbujanjem, da kašlja.</item>
+        <item>Človek sam (neprilagojena hitrost, vinjenost,...)</item>
+        <item>Upognjena nazaj.</item>
+        <item>Ne smejo imeti alkohola v krvi.</item>
     </string-array>
 </resources>
