@@ -84,7 +84,7 @@ public class DefibrilatorActivity extends AppCompatActivity {
                 desniY=(int)gorY2;
 
                 double distance1 = Math.sqrt(Math.pow((leviX-xLeviPad), 2) + Math.pow((leviY-yLeviPad), 2));
-                if(distance1<60)
+                if(distance1<50)
                 {
                     levi.setBackgroundColor(Color.GREEN);
                     rez.append("Leva elektroda: PRAVILNO\n");

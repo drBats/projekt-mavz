@@ -11,22 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
-        <ImageView
-            android:id="@+id/levi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="1dp"
-            app:srcCompat="@drawable/leva" />
-
-        <ImageView
-            android:id="@+id/desni"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:padding="1dp"
-            app:srcCompat="@drawable/desna" />
-
         <ImageView
             android:id="@+id/leviPravilni"
             android:layout_width="wrap_content"
@@ -44,6 +28,21 @@
             android:padding="1dp"
             android:visibility="invisible"
             app:srcCompat="@drawable/desna" />
+        <ImageView
+            android:id="@+id/levi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="1dp"
+            app:srcCompat="@drawable/leva" />
+
+        <ImageView
+            android:id="@+id/desni"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:padding="1dp"
+            app:srcCompat="@drawable/desna" />
+
 
         <ImageView
             android:id="@+id/imageView"
