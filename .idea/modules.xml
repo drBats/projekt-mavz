@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\Jan\Desktop\projekt-mavz\libraries\libraries.iml" filepath="C:\Users\Jan\Desktop\projekt-mavz\libraries\libraries.iml" />
       <module fileurl="file://$PROJECT_DIR$/openCVLibrary320/openCVLibrary320.iml" filepath="$PROJECT_DIR$/openCVLibrary320/openCVLibrary320.iml" />
-      <module fileurl="file://C:\Users\Jan\Desktop\projekt-mavz\libraries\opencv\opencv.iml" filepath="C:\Users\Jan\Desktop\projekt-mavz\libraries\opencv\opencv.iml" />
       <module fileurl="file://$PROJECT_DIR$/projekt-mavz.iml" filepath="$PROJECT_DIR$/projekt-mavz.iml" />
     </modules>
   </component>
