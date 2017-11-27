@@ -1,5 +1,6 @@
 package com.example.jan.gps_koordinate;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -43,6 +44,7 @@ public class DefibrilatorActivity extends AppCompatActivity {
     private int leviX,leviY,desniX,desniY;
     private static final String TAG = "MainActivity";
     private Button izracunaj;
+    private Button help;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +56,20 @@ public class DefibrilatorActivity extends AppCompatActivity {
         leviPravilni=(ImageView)findViewById(R.id.leviPravilni);
         desniPravilni=(ImageView)findViewById(R.id.desniPravilni);
         layout=(FrameLayout)findViewById(R.id.frame);
+        help = (Button)findViewById(R.id.btnHelpAED);
 
         rez=(TextView)findViewById(R.id.rezultat);
+
+        //Odpremo popup navodilo za Defibrilator
+        help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(DefibrilatorActivity.this, PopUp.class);
+                i.putExtra("id", 1);
+                startActivity(i);
+            }
+        });
+
 
         levi.setOnTouchListener(onTouchListener());
         desni.setOnTouchListener(onTouchListener());

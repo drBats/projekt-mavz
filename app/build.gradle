@@ -17,6 +17,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets { main { res.srcDirs = ['src/main/res', 'src/main/res/raw'] } }
 }
 
 dependencies {
@@ -32,6 +33,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile project(':openCVLibrary320')
 }
+
 
 
 apply plugin: 'com.google.gms.google-services'
