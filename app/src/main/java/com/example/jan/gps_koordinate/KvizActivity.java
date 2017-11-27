@@ -9,13 +9,25 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.Random;
 
 public class KvizActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private TextView vprasanje;
+    private FirebaseDatabase database;
+    private DatabaseReference dbRef, data;
+
+    private TextView textVprasanje;
     private Button odgA, odgB, odgC;
 
+    private Vprasanje vprasanje;
+
+    private int stVprasanj;
     private int trenutnoVprasanje = 0;
     private int stPravilnihOdgovorov = 0;
 
@@ -27,10 +39,13 @@ public class KvizActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_kviz);
         setTitle("Kviz");
 
-        vprasanje = (TextView) findViewById(R.id.besedilo_vprasanja);
-        odgA = ((Button) findViewById(R.id.button_A));
-        odgB = ((Button) findViewById(R.id.button_B));
-        odgC = ((Button) findViewById(R.id.button_C));
+        database = FirebaseDatabase.getInstance();
+        dbRef = database.getReference();
+
+        textVprasanje = (TextView) findViewById(R.id.besedilo_vprasanja);
+        odgA = (Button) findViewById(R.id.button_A);
+        odgB = (Button) findViewById(R.id.button_B);
+        odgC = (Button) findViewById(R.id.button_C);
 
         odgA.setOnClickListener(this);
         odgB.setOnClickListener(this);
@@ -40,15 +55,25 @@ public class KvizActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void pripraviVprasanje(int indeks){
-        String trenutnoVprasanje = this.getResources().getStringArray(R.array.vprasanja)[indeks];
-        String odgovorA = this.getResources().getStringArray(R.array.mozni_odgovori)[indeks * ST_ODGOVOROV];
-        String odgovorB = this.getResources().getStringArray(R.array.mozni_odgovori)[indeks * ST_ODGOVOROV + 1];
-        String odgovorC = this.getResources().getStringArray(R.array.mozni_odgovori)[indeks * ST_ODGOVOROV + 2];
+        data = dbRef.child(String.valueOf(indeks));
 
-        vprasanje.setText(trenutnoVprasanje);
-        odgA.setText(odgovorA);
-        odgB.setText(odgovorB);
-        odgC.setText(odgovorC);
+        data.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                vprasanje = dataSnapshot.getValue(Vprasanje.class);
+
+                textVprasanje.setText(vprasanje.getVprasanje());
+                odgA.setText(vprasanje.getOdgovori().get("a"));
+                odgB.setText(vprasanje.getOdgovori().get("b"));
+                odgC.setText(vprasanje.getOdgovori().get("c"));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Log.w("onDataChange", "Failed to read value.", error.toException());
+            }
+        });
+
     }
 
     @Override
@@ -56,7 +81,7 @@ public class KvizActivity extends AppCompatActivity implements View.OnClickListe
         Button b = (Button)v;
         String odgovor = b.getText().toString();
 
-        if(odgovor.equals(getResources().getStringArray(R.array.resitve)[trenutnoVprasanje])){
+        if(odgovor.equals(vprasanje.getOdgovori().get(vprasanje.getPravOdgovor()))){
             stPravilnihOdgovorov++;
         }
 
