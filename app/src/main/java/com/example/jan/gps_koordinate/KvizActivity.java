@@ -1,6 +1,7 @@
 package com.example.jan.gps_koordinate;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -86,11 +87,13 @@ public class KvizActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         if(trenutnoVprasanje == ST_VPRASANJ - 1){
-            Toast.makeText(this, "Vaš rezultat: " + Math.round(((float)stPravilnihOdgovorov / ST_VPRASANJ) * 100) + "%", Toast.LENGTH_LONG).show();
-            trenutnoVprasanje = 0;
-            stPravilnihOdgovorov = 0;
+            Bundle bundle = new Bundle();
+            bundle.putInt("stPravilnihOdgovorov", stPravilnihOdgovorov);
+            bundle.putInt("stVprasanj", ST_VPRASANJ);
 
-            pripraviVprasanje(trenutnoVprasanje);
+            Intent intent = new Intent(this, rezultati.class);
+            intent.putExtras(bundle);
+            startActivity(intent);
         }
         else{
             pripraviVprasanje(++trenutnoVprasanje);
