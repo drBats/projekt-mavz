@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1072653243887",
+    "firebase_url": "https://prva-pomoc-52da8.firebaseio.com",
+    "project_id": "prva-pomoc-52da8",
+    "storage_bucket": "prva-pomoc-52da8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1072653243887:android:1113e8fc6c30cc41",
+        "android_client_info": {
+          "package_name": "com.example.jan.gps_koordinate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1072653243887-ci7d28lig35513pnv4oa4n5utkkg3n2a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.jan.gps_koordinate",
+            "certificate_hash": "ca7af42df108c6e7858bfdc2a16da726011c2d68"
+          }
+        },
+        {
+          "client_id": "1072653243887-18avkb9kqml77kgpa9odhcjnpli4j4cl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDt2T9CYuh7OJa43rnNQsdovvdO4jkXk4w"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1072653243887-18avkb9kqml77kgpa9odhcjnpli4j4cl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
