@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1072653243887-fd38asd9amaopkodc4gdvm7hcaj5vsac.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.jan.gps_koordinate",
+            "certificate_hash": "bdc356afa9d3b13d15c5806140779912c44a771b"
+          }
+        },
+        {
           "client_id": "1072653243887-ci7d28lig35513pnv4oa4n5utkkg3n2a.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
