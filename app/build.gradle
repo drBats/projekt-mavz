@@ -33,7 +33,6 @@ dependencies {
     compile 'com.google.android.gms:play-services-auth:11.6.2'
     compile 'com.google.android.gms:play-services-maps:11.6.2'
     testCompile 'junit:junit:4.12'
-    compile project(':openCVLibrary320')
 }
 
 

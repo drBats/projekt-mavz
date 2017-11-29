@@ -24,16 +24,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.opencv.android.BaseLoaderCallback;
-import org.opencv.android.LoaderCallbackInterface;
-import org.opencv.android.OpenCVLoader;
-import org.opencv.android.Utils;
-import org.opencv.core.CvType;
-import org.opencv.core.Mat;
-import org.opencv.core.Size;
-import org.opencv.engine.OpenCVEngineInterface;
-import org.opencv.imgproc.Imgproc;
-import org.opencv.android.OpenCVLoader;
 
 public class DefibrilatorActivity extends AppCompatActivity {
 
@@ -175,43 +165,5 @@ public class DefibrilatorActivity extends AppCompatActivity {
                 return true;
             }
         };
-    }
-
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.w(TAG, "onResume");
-        if (!OpenCVLoader.initDebug()) {
-            Log.d(TAG, "Internal OpenCV library not found. Using OpenCV Manager for initialization");
-        } else {
-            Log.d(TAG, "OpenCV library found inside package. Using it!");
-            funkcija();
-        }
-    }
-
-
-
-    private void funkcija(){
-        Mat imageMat = new Mat();
-        Bitmap bMap = BitmapFactory.decodeResource(getResources(),R.drawable.body);
-        ImageView image = (ImageView) findViewById(R.id.imageView);
-        Utils.bitmapToMat(bMap,imageMat);
-
-        image.setImageBitmap(bMap);
-
-        imageMat = new Mat();
-        bMap = BitmapFactory.decodeResource(getResources(),R.drawable.leva);
-        image = (ImageView) findViewById(R.id.levi);
-        Utils.bitmapToMat(bMap,imageMat);
-
-        image.setImageBitmap(bMap);
-
-        imageMat = new Mat();
-        bMap = BitmapFactory.decodeResource(getResources(),R.drawable.desna);
-        image = (ImageView) findViewById(R.id.desni);
-        Utils.bitmapToMat(bMap,imageMat);
-        image.setImageBitmap(bMap);
     }
 }

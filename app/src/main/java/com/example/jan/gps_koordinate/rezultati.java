@@ -21,7 +21,7 @@ public class rezultati extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
-        int stPravilnihOdgovorov = bundle.getInt("stPravilnihOdgovorov");
+        /*int stPravilnihOdgovorov = bundle.getInt("stPravilnihOdgovorov");
         int stVprasanj = bundle.getInt("stVprasanj");
         Toast.makeText(this, "Vaš rezultat: " + Math.round(((float)stPravilnihOdgovorov / stVprasanj) * 100) + "%", Toast.LENGTH_LONG).show();
 
@@ -32,7 +32,7 @@ public class rezultati extends AppCompatActivity {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
     }
 
 }
