@@ -59,8 +59,6 @@ public class DefibrilatorActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
-
         levi.setOnTouchListener(onTouchListener());
         desni.setOnTouchListener(onTouchListener());
         izracunaj = (Button) findViewById(R.id.koncano);
