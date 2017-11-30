@@ -46,6 +46,10 @@ public class Vprasanje implements Parcelable{
         return odgovori;
     }
 
+    public String getOdgovor(String key){
+        return odgovori.get(key);
+    }
+
     public String getPravOdgovor() {
         return pravOdgovor;
     }

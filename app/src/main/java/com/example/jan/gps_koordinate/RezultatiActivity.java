@@ -29,7 +29,8 @@ public class RezultatiActivity extends AppCompatActivity {
             ArrayList<Odgovor> odgovori = bundle.getParcelableArrayList("odgovori");
 
             for(int i = 0; i < odgovori.size(); i++){
-                textOdgovori.append(odgovori.get(i).getVprasanje() + ": " + odgovori.get(i).getOdgovor() + "\n");
+                Vprasanje vprasanje = odgovori.get(i).getVprasanje();
+                textOdgovori.append(vprasanje + ": " + vprasanje.getOdgovor(odgovori.get(i).getOdgovor()) + "\n");
             }
 
             Toast.makeText(this, "Vaš rezultat: " + Math.round(((float)stPravilnihOdgovorov / stVprasanj) * 100) + "%", Toast.LENGTH_LONG).show();
