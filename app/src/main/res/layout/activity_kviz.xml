@@ -25,6 +25,7 @@
 
         <Button
             android:id="@+id/button_A"
+            android:tag="a"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginBottom="8dp"
@@ -32,6 +33,7 @@
 
         <Button
             android:id="@+id/button_B"
+            android:tag="b"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginBottom="8dp"
@@ -39,6 +41,7 @@
 
         <Button
             android:id="@+id/button_C"
+            android:tag="c"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_weight="1" />

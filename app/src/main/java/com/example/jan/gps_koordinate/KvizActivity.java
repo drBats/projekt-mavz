@@ -1,6 +1,5 @@
 package com.example.jan.gps_koordinate;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -16,9 +14,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Random;
 
-public class KvizActivity extends AppCompatActivity implements View.OnClickListener{
+public class KvizActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseDatabase database;
     private DatabaseReference dbRef, data;
@@ -27,13 +26,13 @@ public class KvizActivity extends AppCompatActivity implements View.OnClickListe
     private Button odgA, odgB, odgC;
 
     private Vprasanje vprasanje;
+    private ArrayList<Integer> zaporedjeVprasanj;
+    private ArrayList<Odgovor> odgovori;
 
-    private int stVprasanj;
     private int trenutnoVprasanje = 0;
     private int stPravilnihOdgovorov = 0;
 
-    private static int ST_VPRASANJ = 5;
-    private static int ST_ODGOVOROV = 3;
+    private static int ST_VPRASANJ = 13;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,11 +51,21 @@ public class KvizActivity extends AppCompatActivity implements View.OnClickListe
         odgB.setOnClickListener(this);
         odgC.setOnClickListener(this);
 
+        Random rnd = new Random();
+        zaporedjeVprasanj = new ArrayList<>();
+        for(int i = 0; i < ST_VPRASANJ; i++){
+            int n = rnd.nextInt(ST_VPRASANJ);
+            while(zaporedjeVprasanj.contains(n)) n = rnd.nextInt(ST_VPRASANJ);
+            zaporedjeVprasanj.add(n);
+        }
+
+        odgovori = new ArrayList<>();
+
         pripraviVprasanje(trenutnoVprasanje);
     }
 
     private void pripraviVprasanje(int indeks){
-        data = dbRef.child(String.valueOf(indeks));
+        data = dbRef.child(String.valueOf(zaporedjeVprasanj.get(indeks)));
 
         data.addValueEventListener(new ValueEventListener() {
             @Override
@@ -80,9 +89,11 @@ public class KvizActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         Button b = (Button)v;
-        String odgovor = b.getText().toString();
+        String odgovor = (String)b.getTag();
 
-        if(odgovor.equals(vprasanje.getOdgovori().get(vprasanje.getPravOdgovor()))){
+        odgovori.add(new Odgovor(vprasanje, odgovor));
+
+        if(odgovor.equals(vprasanje.getPravOdgovor())){
             stPravilnihOdgovorov++;
         }
 
@@ -90,8 +101,9 @@ public class KvizActivity extends AppCompatActivity implements View.OnClickListe
             Bundle bundle = new Bundle();
             bundle.putInt("stPravilnihOdgovorov", stPravilnihOdgovorov);
             bundle.putInt("stVprasanj", ST_VPRASANJ);
+            bundle.putParcelableArrayList("odgovori", odgovori);
 
-            Intent intent = new Intent(this, rezultati.class);
+            Intent intent = new Intent(this, RezultatiActivity.class);
             intent.putExtras(bundle);
             startActivity(intent);
         }
