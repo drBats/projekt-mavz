@@ -9,7 +9,7 @@
     <Button
         android:id="@+id/button_defibrilator"
         style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="256"
+        android:layout_width="256dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -23,7 +23,7 @@
     <Button
         android:id="@+id/button_ozivljanje"
         style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="256"
+        android:layout_width="256dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
