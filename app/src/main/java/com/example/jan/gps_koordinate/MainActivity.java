@@ -26,7 +26,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnKviz, btnZemljevid, btnDefibrilator, btnRezultati,odjava;
+    private Button btnKviz, btnZemljevid, bntSimulacije, btnRezultati,odjava;
     SignInButton prijava;
     private FirebaseAuth mAuth;
     private static final int RC_SIGN_IN = 9001;
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnKviz = (Button) findViewById(R.id.button_kviz);
         btnZemljevid = (Button) findViewById(R.id.button_zemljevid);
-        btnDefibrilator = (Button) findViewById(R.id.button_defibrilator);
+        bntSimulacije = (Button) findViewById(R.id.button_simulacije);
         btnRezultati = (Button) findViewById(R.id.button_rezultati);
         prijava=(SignInButton) findViewById(R.id.googleBtn);
         odjava = (Button) findViewById(R.id.googleOdjava);
@@ -85,11 +85,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnDefibrilator.setOnClickListener(new View.OnClickListener() {
+        bntSimulacije.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent defibrilator = new Intent(MainActivity.this, DefibrilatorActivity.class);
-                startActivity(defibrilator);
+                Intent simulacije = new Intent(MainActivity.this, SimulacijeActivity.class);
+                startActivity(simulacije);
             }
         });
 

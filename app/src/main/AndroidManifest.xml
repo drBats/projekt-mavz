@@ -48,7 +48,9 @@
             android:name=".RezultatiActivity"
             android:label="@string/title_activity_rezultati"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".PopUp"></activity>
+        <activity android:name=".PopUp" />
+        <activity android:name=".SimulacijeActivity" />
+        <activity android:name=".OzivljanjeActivity"></activity>
     </application>
 
 </manifest>

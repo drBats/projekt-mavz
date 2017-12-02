@@ -17,7 +17,7 @@
         android:textSize="30sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_defibrilator" />
+        app:layout_constraintTop_toBottomOf="@+id/button_simulacije" />
 
     <Button
         android:id="@+id/button_kviz"
@@ -49,14 +49,14 @@
         app:layout_constraintTop_toBottomOf="@+id/button_kviz" />
 
     <Button
-        android:id="@+id/button_defibrilator"
+        android:id="@+id/button_simulacije"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="256dp"
         android:layout_height="0dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="6dp"
-        android:text="DEFIBRILATOR"
+        android:text="SIMULACIJE"
         android:textSize="30sp"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintLeft_toLeftOf="parent"
