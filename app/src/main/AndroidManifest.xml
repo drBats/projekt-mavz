@@ -50,7 +50,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".PopUp" />
         <activity android:name=".SimulacijeActivity" />
-        <activity android:name=".OzivljanjeActivity"></activity>
+        <activity android:name=".OzivljanjeActivity" />
+        <activity android:name=".NavodilaActivity"></activity>
     </application>
 
 </manifest>

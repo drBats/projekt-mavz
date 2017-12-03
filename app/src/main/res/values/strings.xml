@@ -39,4 +39,6 @@
         <item>Ne smejo imeti alkohola v krvi.</item>
     </string-array>
     <string name="title_activity_rezultati">rezultati</string>
+    <string name="title_activity_navodila">NavodilaActivity</string>
+    <string name="ozivljanje">Pri masaži srca prsni koš stiskamo med 5 in 6 cm globoko med 100 in 120 krat na minuto. Vsakih 30 stiskov nudimo umetno dihanje</string>
 </resources>

@@ -1,19 +1,23 @@
 package com.example.jan.gps_koordinate;
 
+import android.content.Intent;
+import android.graphics.Color;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class OzivljanjeActivity extends AppCompatActivity {
 
-    Button btnOzivljanje;
-    TextView text;
-    double time_presssed,time_now, end_time, time_before;
+    ImageButton btnOzivljanje;
+    FloatingActionButton fab;
+    TextView text, txtNatancnost;
+    double time_now, time_before;
     double time_first=0, times_clicked=0;
-    double BPM;
+    double BPM, tocno=0;
 
 
 
@@ -22,8 +26,10 @@ public class OzivljanjeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ozivljanje);
 
-        btnOzivljanje = (Button)findViewById(R.id.button_ress);
+        btnOzivljanje = (ImageButton)findViewById(R.id.button_ress);
         text = (TextView)findViewById(R.id.textView2);
+        txtNatancnost = (TextView)findViewById(R.id.textNatancnost);
+        fab = (FloatingActionButton)findViewById(R.id.fab);
 
         btnOzivljanje.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,9 +45,27 @@ public class OzivljanjeActivity extends AppCompatActivity {
                     time_now=System.currentTimeMillis();
                     times_clicked++;
                     BPM = 60 / ((time_now - time_before)/1000);
+                    if(BPM > 120 || BPM < 100){
+                        text.setTextColor(Color.RED);
+                        txtNatancnost.setText(String.valueOf((tocno/times_clicked)*100) + "%");
+                    }
+                    else {
+                        text.setTextColor(Color.GREEN);
+                        tocno++;
+                        txtNatancnost.setText(String.valueOf((tocno/times_clicked)*100) + "%");
+                    }
                     text.setText(String.valueOf((int)BPM));
                     time_before=time_now;
                 }
+            }
+        });
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(OzivljanjeActivity.this, NavodilaActivity.class);
+                i.putExtra("id", 1);
+                startActivity(i);
             }
         });
     }

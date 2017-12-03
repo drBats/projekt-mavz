@@ -29,3 +29,4 @@ openCVLibrary320/build/generated/source/buildConfig/debug/org/opencv/BuildConfig
 openCVLibrary320/build/generated/source/buildConfig/androidTest/debug/org/opencv/test/BuildConfig.java
 openCVLibrary320/build/generated/source/aidl/debug/org/opencv/engine/OpenCVEngineInterface.java
 openCVLibrary320/build.gradle
+app/build.gradle
