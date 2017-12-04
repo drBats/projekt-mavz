@@ -18,6 +18,7 @@ public class OzivljanjeActivity extends AppCompatActivity {
     double time_now, time_before;
     double time_first=0, times_clicked=0;
     double BPM, tocno=0;
+    int procenti;
 
 
 
@@ -47,12 +48,14 @@ public class OzivljanjeActivity extends AppCompatActivity {
                     BPM = 60 / ((time_now - time_before)/1000);
                     if(BPM > 120 || BPM < 100){
                         text.setTextColor(Color.RED);
-                        txtNatancnost.setText(String.valueOf((tocno/times_clicked)*100) + "%");
+                        procenti = (int)((tocno/times_clicked)*100);
+                        txtNatancnost.setText(String.valueOf(procenti) + "%");
                     }
                     else {
                         text.setTextColor(Color.GREEN);
                         tocno++;
-                        txtNatancnost.setText(String.valueOf((tocno/times_clicked)*100) + "%");
+                        procenti = (int)((tocno/times_clicked)*100);
+                        txtNatancnost.setText(String.valueOf(procenti) + "%");
                     }
                     text.setText(String.valueOf((int)BPM));
                     time_before=time_now;
