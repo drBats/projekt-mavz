@@ -34,6 +34,8 @@ public class KvizActivity extends AppCompatActivity implements View.OnClickListe
 
     private static int ST_VPRASANJ = 13;
 
+    private long startTime, endTime;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kviz);
@@ -76,6 +78,8 @@ public class KvizActivity extends AppCompatActivity implements View.OnClickListe
                 odgA.setText(vprasanje.getOdgovori().get("a"));
                 odgB.setText(vprasanje.getOdgovori().get("b"));
                 odgC.setText(vprasanje.getOdgovori().get("c"));
+
+                startTime = System.nanoTime();
             }
 
             @Override
@@ -88,10 +92,12 @@ public class KvizActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        endTime = System.nanoTime();
+
         Button b = (Button)v;
         String odgovor = (String)b.getTag();
 
-        odgovori.add(new Odgovor(vprasanje, odgovor));
+        odgovori.add(new Odgovor(vprasanje, odgovor, endTime - startTime));
 
         if(odgovor.equals(vprasanje.getPravOdgovor())){
             stPravilnihOdgovorov++;
