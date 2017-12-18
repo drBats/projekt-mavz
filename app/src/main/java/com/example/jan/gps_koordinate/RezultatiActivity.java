@@ -62,7 +62,7 @@ public class RezultatiActivity extends AppCompatActivity implements ActivityComp
                 }
             }
 
-            File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_ALARMS);
+            File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC);
             File file = new File(path, "podatki.arff");
 
             FileOutputStream outputStream;
