@@ -27,6 +27,24 @@ public class Odgovor implements Parcelable{
 
     public long getCas() { return cas; }
 
+    public String getCasDisc(){
+        if(cas > 0 && cas < 500000000){
+            return "hitro";
+        }
+        else if(cas > 500000000 && cas < 1000000000){
+            return "srednje";
+        }
+        else if(cas > 1000000000){
+            return "počasi";
+        }
+
+        return "?";
+    }
+
+    public boolean isCorrect(){
+        return vprasanje.getPravOdgovor().equals(odgovor);
+    }
+
     protected Odgovor(Parcel in) {
         vprasanje = in.readParcelable(Vprasanje.class.getClassLoader());
         odgovor = in.readString();

@@ -42,7 +42,7 @@ public class KvizActivity extends AppCompatActivity implements View.OnClickListe
         setTitle("Kviz");
 
         database = FirebaseDatabase.getInstance();
-        dbRef = database.getReference();
+        dbRef = database.getReference("vprasanja");
 
         textVprasanje = (TextView) findViewById(R.id.besedilo_vprasanja);
         odgA = (Button) findViewById(R.id.button_A);

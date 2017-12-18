@@ -22,8 +22,6 @@ import java.util.ArrayList;
 
 public class RezultatiActivity extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
 
-    private OutputStream outputStream;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,39 +65,41 @@ public class RezultatiActivity extends AppCompatActivity implements ActivityComp
             File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_ALARMS);
             File file = new File(path, "podatki.arff");
 
-            try {
-                path.mkdirs();
-                file.createNewFile();
-
-                outputStream = new FileOutputStream(file);
-                outputStream.write("@relation kviz-rezultati\n\n@attribute vprasanje numeric\n@attribute kategorija {1, 2, 3, 4}\n@attribute cas-razmisljanja numeric\n\n@data\n".getBytes());
-
-            } catch (IOException e) {
-                // Unable to create file, likely because external storage is
-                // not currently mounted.
-                Log.w("ExternalStorage", "Error writing " + file, e);
-            }
-
-            for(int i = 0; i < odgovori.size(); i++){
-                Vprasanje vprasanje = odgovori.get(i).getVprasanje();
-
-                View view = getLayoutInflater().inflate(R.layout.layout_odgovor, null);
-                ((TextView) view.findViewById(R.id.vprasanje)).setText(vprasanje.toString());
-                ((TextView) view.findViewById(R.id.odgovor_a)).setText(vprasanje.getOdgovori().get("a") + (odgovori.get(i).getOdgovor().equals("a") ? " <--" : ""));
-                ((TextView) view.findViewById(R.id.odgovor_b)).setText(vprasanje.getOdgovori().get("b") + (odgovori.get(i).getOdgovor().equals("b") ? " <--" : ""));
-                ((TextView) view.findViewById(R.id.odgovor_c)).setText(vprasanje.getOdgovori().get("c") + (odgovori.get(i).getOdgovor().equals("c") ? " <--" : ""));
-                ((LinearLayout) findViewById(R.id.seznam_odgovorov)).addView(view);
-
-                String vrstica = i + "," + "1," + odgovori.get(i).getCas() + "\n";
+            FileOutputStream outputStream;
+            if(!file.exists()){
                 try{
-                    outputStream.write(vrstica.getBytes());
-                } catch(IOException ex){
-                    Log.w("ExternalStorage", "Error writing " + file, ex);
-                }
-            }
+                    if(!file.createNewFile()){
+                        Toast.makeText(this, "Napaka pri ustvarjanju datoteke.", Toast.LENGTH_LONG).show();
+                        return;
+                    }
 
+                    outputStream = new FileOutputStream(file);
+                    outputStream.write(getString(R.string.arff_header).getBytes());
+
+                } catch(IOException ex){
+                    Log.w("RezultatiActivity", "Error writing " + file, ex);
+                }
+
+            }
             try{
+                outputStream = new FileOutputStream(file, true);
+
+                for(int i = 0; i < odgovori.size(); i++){
+                    Vprasanje vprasanje = odgovori.get(i).getVprasanje();
+
+                    View view = getLayoutInflater().inflate(R.layout.layout_odgovor, null);
+                    ((TextView) view.findViewById(R.id.vprasanje)).setText(vprasanje.toString());
+                    ((TextView) view.findViewById(R.id.odgovor_a)).setText(vprasanje.getOdgovori().get("a") + (odgovori.get(i).getOdgovor().equals("a") ? " <--" : ""));
+                    ((TextView) view.findViewById(R.id.odgovor_b)).setText(vprasanje.getOdgovori().get("b") + (odgovori.get(i).getOdgovor().equals("b") ? " <--" : ""));
+                    ((TextView) view.findViewById(R.id.odgovor_c)).setText(vprasanje.getOdgovori().get("c") + (odgovori.get(i).getOdgovor().equals("c") ? " <--" : ""));
+                    ((LinearLayout) findViewById(R.id.seznam_odgovorov)).addView(view);
+
+                    String vrstica = i + ", " + vprasanje.getKategorija() +  ", " + odgovori.get(i).getCasDisc() + ", " + (odgovori.get(i).isCorrect() ? "pravilno" : "nepravilno") + "\n";
+                    outputStream.write(vrstica.getBytes());
+                }
+
                 outputStream.close();
+
             } catch(IOException ex){
                 Log.w("ExternalStorage", "Error writing " + file, ex);
             }
@@ -113,8 +113,7 @@ public class RezultatiActivity extends AppCompatActivity implements ActivityComp
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case 1: {
                 // If request is cancelled, the result arrays are empty.
