@@ -32,7 +32,7 @@ public class KvizActivity extends AppCompatActivity implements View.OnClickListe
     private int trenutnoVprasanje = 0;
     private int stPravilnihOdgovorov = 0;
 
-    private static int ST_VPRASANJ = 13;
+    private static int ST_VPRASANJ = 24;
 
     private long startTime, endTime;
 
