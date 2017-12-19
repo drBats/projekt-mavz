@@ -28,13 +28,13 @@ public class Odgovor implements Parcelable{
     public long getCas() { return cas; }
 
     public String getCasDisc(){
-        if(cas > 0L && cas <= 7500000000L){
+        if(cas > 0L && cas <= 4000000000L){
             return "hitro";
         }
-        else if(cas > 7500000000L && cas <= 15000000000L){
+        else if(cas > 4000000000L && cas <= 8000000000L){
             return "srednje";
         }
-        else if(cas > 15000000000L){
+        else if(cas > 8000000000L){
             return "pocasi";
         }
 
