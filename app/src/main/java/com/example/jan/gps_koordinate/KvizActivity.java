@@ -32,7 +32,9 @@ public class KvizActivity extends AppCompatActivity implements View.OnClickListe
     private int trenutnoVprasanje = 0;
     private int stPravilnihOdgovorov = 0;
 
-    private static int ST_VPRASANJ = 13;
+    private static int ST_VPRASANJ = 24;
+
+    private long startTime, endTime;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +42,7 @@ public class KvizActivity extends AppCompatActivity implements View.OnClickListe
         setTitle("Kviz");
 
         database = FirebaseDatabase.getInstance();
-        dbRef = database.getReference();
+        dbRef = database.getReference("vprasanja");
 
         textVprasanje = (TextView) findViewById(R.id.besedilo_vprasanja);
         odgA = (Button) findViewById(R.id.button_A);
@@ -64,18 +66,21 @@ public class KvizActivity extends AppCompatActivity implements View.OnClickListe
         pripraviVprasanje(trenutnoVprasanje);
     }
 
-    private void pripraviVprasanje(int indeks){
+    private void pripraviVprasanje(final int indeks){
         data = dbRef.child(String.valueOf(zaporedjeVprasanj.get(indeks)));
 
         data.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 vprasanje = dataSnapshot.getValue(Vprasanje.class);
+                vprasanje.setId(zaporedjeVprasanj.get(indeks));
 
                 textVprasanje.setText(vprasanje.getVprasanje());
                 odgA.setText(vprasanje.getOdgovori().get("a"));
                 odgB.setText(vprasanje.getOdgovori().get("b"));
                 odgC.setText(vprasanje.getOdgovori().get("c"));
+
+                startTime = System.nanoTime();
             }
 
             @Override
@@ -88,10 +93,12 @@ public class KvizActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        endTime = System.nanoTime();
+
         Button b = (Button)v;
         String odgovor = (String)b.getTag();
 
-        odgovori.add(new Odgovor(vprasanje, odgovor));
+        odgovori.add(new Odgovor(vprasanje, odgovor, endTime - startTime));
 
         if(odgovor.equals(vprasanje.getPravOdgovor())){
             stPravilnihOdgovorov++;
