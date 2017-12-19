@@ -94,7 +94,7 @@ public class RezultatiActivity extends AppCompatActivity implements ActivityComp
                     ((TextView) view.findViewById(R.id.odgovor_c)).setText(vprasanje.getOdgovori().get("c") + (odgovori.get(i).getOdgovor().equals("c") ? " <--" : ""));
                     ((LinearLayout) findViewById(R.id.seznam_odgovorov)).addView(view);
 
-                    String vrstica = i + ", " + vprasanje.getKategorija() +  ", " + odgovori.get(i).getCasDisc() + ", " + (odgovori.get(i).isCorrect() ? "pravilno" : "nepravilno") + "\n";
+                    String vrstica = vprasanje.getId() + ", " + vprasanje.getKategorija() +  ", " + odgovori.get(i).getCasDisc() + ", " + (odgovori.get(i).isCorrect() ? "pravilno" : "nepravilno") + "\n";
                     outputStream.write(vrstica.getBytes());
                 }
 

@@ -66,13 +66,14 @@ public class KvizActivity extends AppCompatActivity implements View.OnClickListe
         pripraviVprasanje(trenutnoVprasanje);
     }
 
-    private void pripraviVprasanje(int indeks){
+    private void pripraviVprasanje(final int indeks){
         data = dbRef.child(String.valueOf(zaporedjeVprasanj.get(indeks)));
 
         data.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 vprasanje = dataSnapshot.getValue(Vprasanje.class);
+                vprasanje.setId(zaporedjeVprasanj.get(indeks));
 
                 textVprasanje.setText(vprasanje.getVprasanje());
                 odgA.setText(vprasanje.getOdgovori().get("a"));

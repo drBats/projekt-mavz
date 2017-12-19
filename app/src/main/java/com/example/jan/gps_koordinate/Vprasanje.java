@@ -7,6 +7,7 @@ import android.os.Parcelable;
 import java.util.HashMap;
 
 public class Vprasanje implements Parcelable{
+    private int id;
     private String vprasanje;
     private String kategorija;
     private HashMap<String, String> odgovori;
@@ -22,6 +23,7 @@ public class Vprasanje implements Parcelable{
     }
 
     protected Vprasanje(Parcel in) {
+        id = in.readInt();
         vprasanje = in.readString();
         kategorija = in .readString();
         odgovori = in.readHashMap(String.class.getClassLoader());
@@ -39,6 +41,14 @@ public class Vprasanje implements Parcelable{
             return new Vprasanje[size];
         }
     };
+
+    public int getId(){
+        return id;
+    }
+
+    public void setId(int id){
+        this.id = id;
+    }
 
     public String getVprasanje() {
         return vprasanje;
@@ -71,6 +81,7 @@ public class Vprasanje implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
         parcel.writeString(vprasanje);
         parcel.writeString(kategorija);
         parcel.writeMap(odgovori);
