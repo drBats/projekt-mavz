@@ -35,19 +35,19 @@ public class RezultatiKviza implements Parcelable{
     }
 
     public String getDiscCasResevanja(){
-        if(casResevanja < minutesToNanoseconds(26)){
+        if(casResevanja < minutesToNanoseconds(10)){
             return "zelo_hitro";
         }
-        else if(casResevanja >= minutesToNanoseconds(26) && casResevanja < minutesToNanoseconds(30)){
+        else if(casResevanja >= minutesToNanoseconds(10) && casResevanja < minutesToNanoseconds(15)){
             return "hitro";
         }
-        else if(casResevanja >= minutesToNanoseconds(30) && casResevanja < minutesToNanoseconds(40)){
+        else if(casResevanja >= minutesToNanoseconds(15) && casResevanja < minutesToNanoseconds(20)){
             return "srednje";
         }
-        else if(casResevanja >= minutesToNanoseconds(40) && casResevanja < minutesToNanoseconds(50)){
+        else if(casResevanja >= minutesToNanoseconds(20) && casResevanja < minutesToNanoseconds(25)){
             return "pocasi";
         }
-        else if(casResevanja >= minutesToNanoseconds(50)){
+        else if(casResevanja >= minutesToNanoseconds(25)){
             return "zelo_pocasi";
         }
 
