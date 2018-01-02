@@ -35,7 +35,7 @@ public class RezultatiKviza implements Parcelable{
     }
 
     public String getDiscCasResevanja(){
-        if(casResevanja >= minutesToNanoseconds(20) && casResevanja < minutesToNanoseconds(26)){
+        if(casResevanja < minutesToNanoseconds(26)){
             return "zelo_hitro";
         }
         else if(casResevanja >= minutesToNanoseconds(26) && casResevanja < minutesToNanoseconds(30)){
