@@ -10,6 +10,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RezultatiKviza implements Parcelable{
+    private ArrayList<Odgovor> odgovori;
+    private int stVprasanj, stPravilnih, stNepravilnih;
+    private long casResevanja;
+
     public ArrayList<Odgovor> getOdgovori() {
         return odgovori;
     }
@@ -28,6 +32,30 @@ public class RezultatiKviza implements Parcelable{
 
     public long getCasResevanja() {
         return casResevanja;
+    }
+
+    public String getDiscCasResevanja(){
+        if(casResevanja >= minutesToNanoseconds(20) && casResevanja < minutesToNanoseconds(26)){
+            return "zelo_hitro";
+        }
+        else if(casResevanja >= minutesToNanoseconds(26) && casResevanja < minutesToNanoseconds(30)){
+            return "hitro";
+        }
+        else if(casResevanja >= minutesToNanoseconds(30) && casResevanja < minutesToNanoseconds(40)){
+            return "srednje";
+        }
+        else if(casResevanja >= minutesToNanoseconds(40) && casResevanja < minutesToNanoseconds(50)){
+            return "pocasi";
+        }
+        else if(casResevanja >= minutesToNanoseconds(50)){
+            return "zelo_pocasi";
+        }
+
+        return "napaka";
+    }
+
+    private long minutesToNanoseconds(int minute){ //kao brez decimalk - 2,5 minute daš 25 not
+        return minute * 6000000000L;
     }
 
     public String getAvgKategorija(){
@@ -92,9 +120,88 @@ public class RezultatiKviza implements Parcelable{
 
     }
 
-    private ArrayList<Odgovor> odgovori;
-    private int stVprasanj, stPravilnih, stNepravilnih;
-    private long casResevanja;
+    private int tockeVprasanja(){
+        float del = stVprasanj / 5;
+
+        if(stPravilnih < del){
+            return 5;
+        }
+        else if(stPravilnih >= del && stPravilnih < 2 * del){
+            return 4;
+        }
+        else if(stPravilnih >= 2 * del && stPravilnih < 3 * del){
+            return 3;
+        }
+        else if(stPravilnih >= 3 * del && stPravilnih < 4 * del){
+            return 2;
+        }
+        else if(stPravilnih >= 4 * del){
+            return 1;
+        }
+
+        throw new ArrayIndexOutOfBoundsException();
+    }
+
+    private int tockeCasResevanja(){
+        String casResevanja = getDiscCasResevanja();
+
+        switch (casResevanja){
+            case "zelo_hitro":
+                return 1;
+            case "hitro":
+                return 2;
+            case "srednje":
+                return 3;
+            case "pocasi":
+                return 4;
+            case "zelo_pocasi":
+                return 5;
+        }
+
+        throw new IllegalArgumentException(casResevanja);
+    }
+
+    private int tockeTezavnost(){
+        String avgTezavnost = getAvgTezavnost();
+
+        switch (avgTezavnost){
+            case "zelo_lahko":
+                return 1;
+            case "lahko":
+                return 2;
+            case "srednje":
+                return 3;
+            case "težko":
+                return 4;
+            case "zelo_težko":
+                return 5;
+        }
+
+        throw new IllegalArgumentException(avgTezavnost);
+    }
+
+    public String klasificiraj(){
+        int tocke = tockeCasResevanja() + tockeTezavnost() + tockeVprasanja();
+
+        if(tocke >= 3 && tocke < 5){
+            return "zelo_lahek";
+        }
+        else if(tocke >= 5 && tocke < 8){
+            return "lahek";
+        }
+        else if(tocke >= 8 && tocke < 11){
+            return "srednje";
+        }
+        else if(tocke >= 11 && tocke < 14){
+            return "težek";
+        }
+        else if(tocke >= 14 && tocke < 16){
+            return "zelo_težek";
+        }
+
+        throw new IndexOutOfBoundsException(tocke + "");
+
+    }
 
     public RezultatiKviza() {}
 

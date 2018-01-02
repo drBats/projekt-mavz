@@ -96,7 +96,7 @@ public class RezultatiActivity extends AppCompatActivity implements ActivityComp
                     ((LinearLayout) findViewById(R.id.seznam_odgovorov)).addView(view);
                 }
 
-                String vrstica = rezultati.getStVprasanj() + ", " + rezultati.getStPravilnih() + ", " + rezultati.getStNepravilnih() + ", " + rezultati.getAvgKategorija() + ", " + rezultati.getCasResevanja() + ", " + rezultati.getAvgTezavnost() + "\n";
+                String vrstica = rezultati.getStVprasanj() + ", " + rezultati.getStPravilnih() + ", " + rezultati.getStNepravilnih() + ", " + rezultati.getAvgKategorija() + ", " + rezultati.getDiscCasResevanja() + ", " + rezultati.getAvgTezavnost() + ", " + rezultati.klasificiraj() + "\n";
                 outputStream.write(vrstica.getBytes());
 
                 outputStream.close();
