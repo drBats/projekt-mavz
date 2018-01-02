@@ -11,14 +11,16 @@ public class Vprasanje implements Parcelable{
     private String vprasanje;
     private String kategorija;
     private HashMap<String, String> odgovori;
+    private String težavnost;
     private String pravOdgovor;
 
     public Vprasanje(){ }
 
-    public Vprasanje(String vprasanje, String kategorija, HashMap<String, String> odgovori, String pravOdgovor){
+    public Vprasanje(String vprasanje, String kategorija, HashMap<String, String> odgovori, String težavnost, String pravOdgovor){
         this.vprasanje = vprasanje;
         this.kategorija = kategorija;
         this.odgovori = odgovori;
+        this.težavnost = težavnost;
         this.pravOdgovor = pravOdgovor;
     }
 
@@ -27,6 +29,7 @@ public class Vprasanje implements Parcelable{
         vprasanje = in.readString();
         kategorija = in .readString();
         odgovori = in.readHashMap(String.class.getClassLoader());
+        težavnost = in.readString();
         pravOdgovor = in.readString();
     }
 
@@ -85,6 +88,11 @@ public class Vprasanje implements Parcelable{
         parcel.writeString(vprasanje);
         parcel.writeString(kategorija);
         parcel.writeMap(odgovori);
+        parcel.writeString(težavnost);
         parcel.writeString(pravOdgovor);
+    }
+
+    public String getTežavnost() {
+        return težavnost;
     }
 }

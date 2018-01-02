@@ -32,9 +32,10 @@ public class RezultatiActivity extends AppCompatActivity implements ActivityComp
         Bundle bundle = intent.getExtras();
 
         if(bundle != null){
-            int stPravilnihOdgovorov = bundle.getInt("stPravilnihOdgovorov");
-            int stVprasanj = bundle.getInt("stVprasanj");
-            ArrayList<Odgovor> odgovori = bundle.getParcelableArrayList("odgovori");
+            RezultatiKviza rezultati = bundle.getParcelable("rezultati");
+            int stPravilnihOdgovorov = rezultati.getStPravilnih();
+            int stVprasanj = rezultati.getStVprasanj();
+            ArrayList<Odgovor> odgovori = rezultati.getOdgovori();
 
             if (ContextCompat.checkSelfPermission(this,
                     android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -93,10 +94,10 @@ public class RezultatiActivity extends AppCompatActivity implements ActivityComp
                     ((TextView) view.findViewById(R.id.odgovor_b)).setText(vprasanje.getOdgovori().get("b") + (odgovori.get(i).getOdgovor().equals("b") ? " <--" : ""));
                     ((TextView) view.findViewById(R.id.odgovor_c)).setText(vprasanje.getOdgovori().get("c") + (odgovori.get(i).getOdgovor().equals("c") ? " <--" : ""));
                     ((LinearLayout) findViewById(R.id.seznam_odgovorov)).addView(view);
-
-                    String vrstica = vprasanje.getId() + ", " + vprasanje.getKategorija() +  ", " + odgovori.get(i).getCasDisc() + ", " + (odgovori.get(i).isCorrect() ? "pravilno" : "nepravilno") + "\n";
-                    outputStream.write(vrstica.getBytes());
                 }
+
+                String vrstica = rezultati.getStVprasanj() + ", " + rezultati.getStPravilnih() + ", " + rezultati.getStNepravilnih() + ", " + rezultati.getAvgKategorija() + ", " + rezultati.getCasResevanja() + ", " + rezultati.getAvgTezavnost() + "\n";
+                outputStream.write(vrstica.getBytes());
 
                 outputStream.close();
 

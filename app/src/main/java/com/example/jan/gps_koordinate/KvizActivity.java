@@ -32,9 +32,11 @@ public class KvizActivity extends AppCompatActivity implements View.OnClickListe
     private int trenutnoVprasanje = 0;
     private int stPravilnihOdgovorov = 0;
 
-    private static int ST_VPRASANJ = 24;
+    private static int ST_VPRASANJ_SKUPAJ = 60;
+    private static int ST_VPRASANJ_KVIZ = 20;
 
     private long startTime, endTime;
+    private boolean started;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,14 +57,15 @@ public class KvizActivity extends AppCompatActivity implements View.OnClickListe
 
         Random rnd = new Random();
         zaporedjeVprasanj = new ArrayList<>();
-        for(int i = 0; i < ST_VPRASANJ; i++){
-            int n = rnd.nextInt(ST_VPRASANJ);
-            while(zaporedjeVprasanj.contains(n)) n = rnd.nextInt(ST_VPRASANJ);
+        for(int i = 0; i < ST_VPRASANJ_KVIZ; i++){
+            int n = rnd.nextInt(ST_VPRASANJ_SKUPAJ);
+            while(zaporedjeVprasanj.contains(n)) n = rnd.nextInt(ST_VPRASANJ_SKUPAJ);
             zaporedjeVprasanj.add(n);
         }
 
         odgovori = new ArrayList<>();
 
+        started = false;
         pripraviVprasanje(trenutnoVprasanje);
     }
 
@@ -80,7 +83,9 @@ public class KvizActivity extends AppCompatActivity implements View.OnClickListe
                 odgB.setText(vprasanje.getOdgovori().get("b"));
                 odgC.setText(vprasanje.getOdgovori().get("c"));
 
-                startTime = System.nanoTime();
+                if (!started) startTime = System.nanoTime();
+                started = true;
+
             }
 
             @Override
@@ -93,8 +98,6 @@ public class KvizActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        endTime = System.nanoTime();
-
         Button b = (Button)v;
         String odgovor = (String)b.getTag();
 
@@ -104,11 +107,12 @@ public class KvizActivity extends AppCompatActivity implements View.OnClickListe
             stPravilnihOdgovorov++;
         }
 
-        if(trenutnoVprasanje == ST_VPRASANJ - 1){
+        if(trenutnoVprasanje == ST_VPRASANJ_KVIZ - 1){
+            endTime = System.nanoTime();
+
+            RezultatiKviza rezultati = new RezultatiKviza(odgovori, ST_VPRASANJ_KVIZ, stPravilnihOdgovorov, ST_VPRASANJ_KVIZ - stPravilnihOdgovorov, endTime - startTime);
             Bundle bundle = new Bundle();
-            bundle.putInt("stPravilnihOdgovorov", stPravilnihOdgovorov);
-            bundle.putInt("stVprasanj", ST_VPRASANJ);
-            bundle.putParcelableArrayList("odgovori", odgovori);
+            bundle.putParcelable("rezultati", rezultati);
 
             Intent intent = new Intent(this, RezultatiActivity.class);
             intent.putExtras(bundle);
