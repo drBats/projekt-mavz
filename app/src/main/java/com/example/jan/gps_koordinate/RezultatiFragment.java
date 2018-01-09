@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
@@ -32,7 +33,6 @@ public class RezultatiFragment extends Fragment implements ActivityCompat.OnRequ
     RezultatiKviza rezultati;
     ArrayList<Odgovor> odgovori;
     int stVprasanj, stPravilnihOdgovorov;
-
     boolean rezultatiNaVoljo = false;
 
     public RezultatiFragment(){}
@@ -46,7 +46,7 @@ public class RezultatiFragment extends Fragment implements ActivityCompat.OnRequ
 
         rezultatiNaVoljo = true;
     }
-    
+
     /*@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -223,6 +223,7 @@ public class RezultatiFragment extends Fragment implements ActivityCompat.OnRequ
 
             }
             try{
+                String[] myStringArray = new String[rezultati.getStVprasanj()];
                 currentTime=Calendar.getInstance().getTime(); //dobimo čas reševanja
                 outputStream = new FileOutputStream(file, true);
 
@@ -231,9 +232,37 @@ public class RezultatiFragment extends Fragment implements ActivityCompat.OnRequ
 
                     View view = inflater.inflate(R.layout.layout_odgovor, null);
                     ((TextView) view.findViewById(R.id.vprasanje)).setText(vprasanje.toString());
-                    ((TextView) view.findViewById(R.id.odgovor_a)).setText(vprasanje.getOdgovori().get("a") + (odgovori.get(i).getOdgovor().equals("a") ? " <--" : ""));
+                    ((TextView) view.findViewById(R.id.odgovor_a)).setText(vprasanje.getOdgovori().get("a"));
+                    if((odgovori.get(i).getVprasanje().getPravOdgovor().equals("a")))
+                    {
+                        ((TextView) view.findViewById(R.id.odgovor_a)).setTextColor(Color.GREEN);
+                    }
+                    else if(odgovori.get(i).getOdgovor().equals("a"))
+                    {
+                        ((TextView) view.findViewById(R.id.odgovor_a)).setTextColor(Color.RED);
+                    }
+                    ((TextView) view.findViewById(R.id.odgovor_b)).setText(vprasanje.getOdgovori().get("b"));
+                    if((odgovori.get(i).getVprasanje().getPravOdgovor().equals("b")))
+                    {
+                        ((TextView) view.findViewById(R.id.odgovor_b)).setTextColor(Color.GREEN);
+                    }
+                    else if(odgovori.get(i).getOdgovor().equals("b"))
+                    {
+                        ((TextView) view.findViewById(R.id.odgovor_b)).setTextColor(Color.RED);
+                    }
+                    ((TextView) view.findViewById(R.id.odgovor_c)).setText(vprasanje.getOdgovori().get("c"));
+                    if((odgovori.get(i).getVprasanje().getPravOdgovor().equals("c")))
+                    {
+                        ((TextView) view.findViewById(R.id.odgovor_c)).setTextColor(Color.GREEN);
+                    }
+                    else if(odgovori.get(i).getOdgovor().equals("c"))
+                    {
+                        ((TextView) view.findViewById(R.id.odgovor_c)).setTextColor(Color.RED);
+                    }
+
+                    /*((TextView) view.findViewById(R.id.odgovor_a)).setText(vprasanje.getOdgovori().get("a") + (odgovori.get(i).getOdgovor().equals("a") ? " <--" : ""));
                     ((TextView) view.findViewById(R.id.odgovor_b)).setText(vprasanje.getOdgovori().get("b") + (odgovori.get(i).getOdgovor().equals("b") ? " <--" : ""));
-                    ((TextView) view.findViewById(R.id.odgovor_c)).setText(vprasanje.getOdgovori().get("c") + (odgovori.get(i).getOdgovor().equals("c") ? " <--" : ""));
+                    ((TextView) view.findViewById(R.id.odgovor_c)).setText(vprasanje.getOdgovori().get("c") + (odgovori.get(i).getOdgovor().equals("c") ? " <--" : ""));*/
                     ((LinearLayout) rootView.findViewById(R.id.seznam_odgovorov)).addView(view);
                 }
 
