@@ -46,7 +46,7 @@ public class RezultatiFragment extends Fragment implements ActivityCompat.OnRequ
 
         rezultatiNaVoljo = true;
     }
-
+    
     /*@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -175,6 +175,7 @@ public class RezultatiFragment extends Fragment implements ActivityCompat.OnRequ
         Date currentTime;
 
 
+
         if(rezultatiNaVoljo){
             if (ContextCompat.checkSelfPermission(getActivity(),
                     android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -274,7 +275,6 @@ public class RezultatiFragment extends Fragment implements ActivityCompat.OnRequ
 
         return rootView;
     }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
