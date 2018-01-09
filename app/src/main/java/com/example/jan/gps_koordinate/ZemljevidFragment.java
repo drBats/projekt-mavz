@@ -58,8 +58,7 @@ public class ZemljevidFragment extends Fragment {
         latitude = (TextView) rootView.findViewById(R.id.latitude);
         longitude = (TextView) rootView.findViewById(R.id.longitude);
 
-        MapFragment mapFragment = (MapFragment) getActivity().getFragmentManager()
-                .findFragmentById(R.id.map);
+        MapFragment mapFragment = (MapFragment) getChildFragmentManager().findFragmentById(R.id.map);
 
         gps = new GPS(latitude, longitude, mapFragment, getActivity());
 
