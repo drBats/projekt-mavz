@@ -1,6 +1,7 @@
 package com.example.jan.gps_koordinate;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -14,11 +15,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class RezultatiActivity extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
 
@@ -30,6 +38,8 @@ public class RezultatiActivity extends AppCompatActivity implements ActivityComp
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
+        Date currentTime;
+
 
         if(bundle != null){
             RezultatiKviza rezultati = bundle.getParcelable("rezultati");
@@ -83,6 +93,7 @@ public class RezultatiActivity extends AppCompatActivity implements ActivityComp
 
             }
             try{
+                currentTime=Calendar.getInstance().getTime(); //dobimo čas reševanja
                 outputStream = new FileOutputStream(file, true);
 
                 for(int i = 0; i < odgovori.size(); i++){
@@ -98,18 +109,38 @@ public class RezultatiActivity extends AppCompatActivity implements ActivityComp
 
                 String vrstica = rezultati.getStVprasanj() + ", " + rezultati.getStPravilnih() + ", " + rezultati.getStNepravilnih() + ", " + rezultati.getAvgKategorija() + ", " + rezultati.getDiscCasResevanja() + ", " + rezultati.getAvgTezavnost() + ", " + rezultati.klasificiraj() + "\n";
                 outputStream.write(vrstica.getBytes());
-
                 outputStream.close();
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-DD H:mm");
+                FileOutputStream fos = this.openFileOutput(formatter.format(currentTime)+" "+Math.round(((float)stPravilnihOdgovorov / stVprasanj) * 100) + "%", Context.MODE_PRIVATE);
+                ObjectOutputStream os = new ObjectOutputStream(fos);
+                os.writeObject(odgovori);
+                os.close();
+                fos.close();
+
+                /* BRANJE
+                FileInputStream fis= this.openFileInput(filename);
+                ObjectInputStream is=new ObjectInputStream(fis);
+                try
+                {
+                    ArrayList<Odgovor> simpleclass = (ArrayList<Odgovor>) is.readObject();
+                }
+                catch   (IOException ex)
+                {
+
+                }
+                is.close();
+                fis.close();*/
 
             } catch(IOException ex){
                 Log.w("ExternalStorage", "Error writing " + file, ex);
             }
 
-            Toast.makeText(this, "Vaš rezultat: " + Math.round(((float)stPravilnihOdgovorov / stVprasanj) * 100) + "%", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Vaš rezultat: " + Math.round(((float)stPravilnihOdgovorov / stVprasanj) * 100) + "%", Toast.LENGTH_LONG).show(); //procenti
         }
         else{
             Toast.makeText(this, "Na voljo še ni nobenih rezultatov.", Toast.LENGTH_LONG).show();
         }
+
 
     }
 
