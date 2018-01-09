@@ -1,10 +1,15 @@
 package com.example.jan.gps_koordinate;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -17,7 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class KvizActivity extends AppCompatActivity implements View.OnClickListener {
+public class KvizFragment extends Fragment implements View.OnClickListener {
 
     private FirebaseDatabase database;
     private DatabaseReference dbRef, data;
@@ -38,9 +43,9 @@ public class KvizActivity extends AppCompatActivity implements View.OnClickListe
     private long startTime, endTime;
     private boolean started;
 
-    protected void onCreate(Bundle savedInstanceState) {
+    /*protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_kviz);
+        setContentView(R.layout.fragment_kviz);
         setTitle("Kviz");
 
         database = FirebaseDatabase.getInstance();
@@ -67,6 +72,39 @@ public class KvizActivity extends AppCompatActivity implements View.OnClickListe
 
         started = false;
         pripraviVprasanje(trenutnoVprasanje);
+    }*/
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_kviz, container, false);
+        //setTitle("Kviz");
+
+        database = FirebaseDatabase.getInstance();
+        dbRef = database.getReference("vprasanja");
+
+        textVprasanje = (TextView) rootView.findViewById(R.id.besedilo_vprasanja);
+        odgA = (Button) rootView.findViewById(R.id.button_A);
+        odgB = (Button) rootView.findViewById(R.id.button_B);
+        odgC = (Button) rootView.findViewById(R.id.button_C);
+
+        odgA.setOnClickListener(this);
+        odgB.setOnClickListener(this);
+        odgC.setOnClickListener(this);
+
+        Random rnd = new Random();
+        zaporedjeVprasanj = new ArrayList<>();
+        for(int i = 0; i < ST_VPRASANJ_KVIZ; i++){
+            int n = rnd.nextInt(ST_VPRASANJ_SKUPAJ);
+            while(zaporedjeVprasanj.contains(n)) n = rnd.nextInt(ST_VPRASANJ_SKUPAJ);
+            zaporedjeVprasanj.add(n);
+        }
+
+        odgovori = new ArrayList<>();
+
+        started = false;
+        pripraviVprasanje(trenutnoVprasanje);
+        return rootView;
     }
 
     private void pripraviVprasanje(final int indeks){
@@ -114,9 +152,19 @@ public class KvizActivity extends AppCompatActivity implements View.OnClickListe
             Bundle bundle = new Bundle();
             bundle.putParcelable("rezultati", rezultati);
 
-            Intent intent = new Intent(this, RezultatiActivity.class);
+           /* Intent intent = new Intent(getActivity(), RezultatiFragment.class);
             intent.putExtras(bundle);
-            startActivity(intent);
+            startActivity(intent);*/
+
+            RezultatiFragment fragment = new RezultatiFragment();
+            fragment.setArguments(bundle);
+
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+            transaction.replace(R.id.fragment_container, fragment);
+            transaction.addToBackStack(null);
+
+            transaction.commit();
         }
         else{
             pripraviVprasanje(++trenutnoVprasanje);

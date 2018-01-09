@@ -2,7 +2,8 @@ package com.example.jan.gps_koordinate;
 
 
 import android.app.Activity;
-import android.content.Intent;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -12,13 +13,24 @@ import android.view.MenuItem;
 
 public class DrawerTest extends Activity implements NavigationView.OnNavigationItemSelectedListener {
 
+    FragmentManager fragmentManager;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_drawer);
+        setContentView(R.layout.activity_main);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation);
         navigationView.setNavigationItemSelectedListener(this);
+
+        fragmentManager = getFragmentManager();
+
+        NujnaPomocFragment fragment = new NujnaPomocFragment();
+
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment);
+
+        transaction.commit();
     }
 
     @Override
@@ -26,18 +38,38 @@ public class DrawerTest extends Activity implements NavigationView.OnNavigationI
         int id = item.getItemId();
 
         if (id == R.id.nav_kviz) {
-            Intent kviz = new Intent(DrawerTest.this, KvizActivity.class);
-            startActivity(kviz);
+            KvizFragment fragment = new KvizFragment();
+
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.replace(R.id.fragment_container, fragment);
+            transaction.addToBackStack(null);
+
+            transaction.commit();
         } else if (id == R.id.nav_rezultati) {
-            Intent rezultati = new Intent(DrawerTest.this, RezultatiActivity.class);
-            startActivity(rezultati);
+            RezultatiFragment fragment = new RezultatiFragment();
+
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.replace(R.id.fragment_container, fragment);
+            transaction.addToBackStack(null);
+
+            transaction.commit();
 
         } else if (id == R.id.nav_simulacije) {
-            Intent simulacije = new Intent(DrawerTest.this, SimulacijeActivity.class);
-            startActivity(simulacije);
+            SimulacijeFragment fragment = new SimulacijeFragment();
+
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.replace(R.id.fragment_container, fragment);
+            transaction.addToBackStack(null);
+
+            transaction.commit();
         } else if (id == R.id.nav_zemljevid) {
-            Intent zemljevid = new Intent(DrawerTest.this, ZemljevidActivity.class);
-            startActivity(zemljevid);
+            ZemljevidFragment fragment = new ZemljevidFragment();
+
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.replace(R.id.fragment_container, fragment);
+            transaction.addToBackStack(null);
+
+            transaction.commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

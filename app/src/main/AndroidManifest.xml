@@ -20,12 +20,7 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".KvizActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".ZemljevidActivity">
+        <activity android:name=".ZemljevidFragment">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -48,13 +43,8 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCBap6rKd1n1dAp9oBqL8jFOeh4wFPWmo8" />
-
-        <activity
-            android:name=".RezultatiActivity"
-            android:label="@string/title_activity_rezultati"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".PopUp" />
-        <activity android:name=".SimulacijeActivity" />
+        <activity android:name=".SimulacijeFragment" />
         <activity android:name=".OzivljanjeActivity" />
         <activity android:name=".NavodilaActivity"></activity>
     </application>

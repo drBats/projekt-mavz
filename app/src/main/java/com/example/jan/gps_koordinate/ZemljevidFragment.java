@@ -1,6 +1,7 @@
 package com.example.jan.gps_koordinate;
 
 import android.Manifest;
+import android.app.Fragment;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -10,11 +11,13 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -29,7 +32,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class ZemljevidActivity extends AppCompatActivity {
+import static android.content.Context.LOCATION_SERVICE;
+
+public class ZemljevidFragment extends Fragment {
 
     private Button gumb, getHospitals;
     private TextView tekst, latitude, longitude;
@@ -40,47 +45,48 @@ public class ZemljevidActivity extends AppCompatActivity {
     private String bestProvider;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_zemljevid);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_zemljevid, container, false);
 
-        gumb = (Button) findViewById(R.id.button);
-        getHospitals = (Button) findViewById(R.id.getHospitals);
-        tekst = (TextView) findViewById(R.id.textView);
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        gumb = (Button) rootView.findViewById(R.id.button);
+        getHospitals = (Button) rootView.findViewById(R.id.getHospitals);
+        tekst = (TextView) rootView.findViewById(R.id.textView);
+        locationManager = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
 
+        latitude = (TextView) rootView.findViewById(R.id.latitude);
+        longitude = (TextView) rootView.findViewById(R.id.longitude);
 
-        latitude = (TextView) findViewById(R.id.latitude);
-        longitude = (TextView) findViewById(R.id.longitude);
-
-        MapFragment mapFragment = (MapFragment) getFragmentManager()
+        MapFragment mapFragment = (MapFragment) getActivity().getFragmentManager()
                 .findFragmentById(R.id.map);
 
-        gps = new GPS(latitude, longitude, mapFragment,this);
+        gps = new GPS(latitude, longitude, mapFragment, getActivity());
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.INTERNET}, 10);
-            return;
+            return null;
         } else {
             configureButton();
         }
         bestProvider=locationManager.getBestProvider(new Criteria(), true);
         lokacija = locationManager.getLastKnownLocation(bestProvider);
+
+        return rootView;
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode){
             case 10:
-                if(grantResults.length>0 && grantResults[0]==getPackageManager().PERMISSION_GRANTED)
+                if(grantResults.length>0 && grantResults[0] == getActivity().getPackageManager().PERMISSION_GRANTED)
                     configureButton();
                 return;
         }
     }
 
     private void configureButton() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding

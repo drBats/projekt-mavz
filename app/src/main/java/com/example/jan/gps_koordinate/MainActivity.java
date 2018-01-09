@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         btnKviz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent kviz = new Intent(MainActivity.this, KvizActivity.class);
+                Intent kviz = new Intent(MainActivity.this, KvizFragment.class);
                 startActivity(kviz);
             }
         });
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         btnZemljevid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent zemljevid = new Intent(MainActivity.this, ZemljevidActivity.class);
+                Intent zemljevid = new Intent(MainActivity.this, ZemljevidFragment.class);
                 startActivity(zemljevid);
             }
         });
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         bntSimulacije.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent simulacije = new Intent(MainActivity.this, SimulacijeActivity.class);
+                Intent simulacije = new Intent(MainActivity.this, SimulacijeFragment.class);
                 startActivity(simulacije);
             }
         });
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         btnRezultati.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent rezultati = new Intent(MainActivity.this, RezultatiActivity.class);
+                Intent rezultati = new Intent(MainActivity.this, RezultatiFragment.class);
                 startActivity(rezultati);
             }
         });
