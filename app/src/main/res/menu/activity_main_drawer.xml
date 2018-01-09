@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_kviz"
+            android:icon="@drawable/ic_menu_quiz"
+            android:title="Kviz" />
+        <item
+            android:id="@+id/nav_rezultati"
+            android:icon="@drawable/ic_menu_results"
+            android:title="Rezultati" />
+        <item
+            android:id="@+id/nav_simulacije"
+            android:icon="@drawable/ic_menu_simulations"
+            android:title="Simulacije" />
+        <item
+            android:id="@+id/nav_zemljevid"
+            android:icon="@drawable/ic_menu_map"
+            android:title="Zemljevid" />
+    </group>
+
+</menu>

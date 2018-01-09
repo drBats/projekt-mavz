@@ -1,7 +1,6 @@
 package com.example.jan.gps_koordinate;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -44,7 +43,7 @@ public class ZemljevidActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_zemljevid);
 
         gumb = (Button) findViewById(R.id.button);
         getHospitals = (Button) findViewById(R.id.getHospitals);
