@@ -36,6 +36,7 @@ public class KvizFragment extends Fragment implements View.OnClickListener {
 
     private int trenutnoVprasanje = 0;
     private int stPravilnihOdgovorov = 0;
+    private int st_vprasanja=1;
 
     private static int ST_VPRASANJ_SKUPAJ = 60;
     private static int ST_VPRASANJ_KVIZ = 20;
@@ -116,10 +117,11 @@ public class KvizFragment extends Fragment implements View.OnClickListener {
                 vprasanje = dataSnapshot.getValue(Vprasanje.class);
                 vprasanje.setId(zaporedjeVprasanj.get(indeks));
 
-                textVprasanje.setText(vprasanje.getVprasanje());
+                textVprasanje.setText(st_vprasanja+". "+ vprasanje.getVprasanje());
                 odgA.setText(vprasanje.getOdgovori().get("a"));
                 odgB.setText(vprasanje.getOdgovori().get("b"));
                 odgC.setText(vprasanje.getOdgovori().get("c"));
+                st_vprasanja++;
 
                 if (!started) startTime = System.nanoTime();
                 started = true;

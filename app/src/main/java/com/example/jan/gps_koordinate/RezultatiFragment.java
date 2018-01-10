@@ -51,6 +51,7 @@ public class RezultatiFragment extends Fragment implements ActivityCompat.OnRequ
         rezultatiNaVoljo = true;
     }
 
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -265,7 +266,7 @@ public class RezultatiFragment extends Fragment implements ActivityCompat.OnRequ
                     Vprasanje vprasanje = odgovori.get(i).getVprasanje();
 
                     View view = inflater.inflate(R.layout.layout_odgovor, null);
-                    ((TextView) view.findViewById(R.id.vprasanje)).setText(vprasanje.toString());
+                    ((TextView) view.findViewById(R.id.vprasanje)).setText(i+1+". "+vprasanje.toString());
                     ((TextView) view.findViewById(R.id.odgovor_a)).setText(vprasanje.getOdgovori().get("a"));
                     if((odgovori.get(i).getVprasanje().getPravOdgovor().equals("a")))
                     {
