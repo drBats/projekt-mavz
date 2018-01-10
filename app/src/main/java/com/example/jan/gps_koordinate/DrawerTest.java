@@ -36,8 +36,15 @@ public class DrawerTest extends Activity implements NavigationView.OnNavigationI
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
+        if (id == R.id.home) {
+            NujnaPomocFragment fragment = new NujnaPomocFragment();
 
-        if (id == R.id.nav_kviz) {
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.replace(R.id.fragment_container, fragment);
+            transaction.addToBackStack(null);
+
+            transaction.commit();
+        }else if (id == R.id.nav_kviz) {
             KvizFragment fragment = new KvizFragment();
 
             FragmentTransaction transaction = fragmentManager.beginTransaction();

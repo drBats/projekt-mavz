@@ -2,6 +2,8 @@ package com.example.jan.gps_koordinate;
 
 import android.Manifest;
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -35,6 +37,7 @@ public class RezultatiFragment extends Fragment implements ActivityCompat.OnRequ
     ArrayList<Odgovor> odgovori;
     int stVprasanj, stPravilnihOdgovorov;
     boolean rezultatiNaVoljo = false;
+    FragmentManager fragmentManager;
 
     public RezultatiFragment(){}
 
@@ -48,6 +51,12 @@ public class RezultatiFragment extends Fragment implements ActivityCompat.OnRequ
         rezultatiNaVoljo = true;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        fragmentManager = getFragmentManager();
+
+    }
     /*@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -164,6 +173,18 @@ public class RezultatiFragment extends Fragment implements ActivityCompat.OnRequ
 
     }*/
 
+    @Override
+    public void onDetach() {
+        NujnaPomocFragment fragment = new NujnaPomocFragment();
+
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.addToBackStack(null);
+
+        transaction.commit();
+        super.onDetach();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -174,6 +195,7 @@ public class RezultatiFragment extends Fragment implements ActivityCompat.OnRequ
         Intent intent = getActivity().getIntent();
         Bundle bundle = intent.getExtras();
         Date currentTime;
+
 
 
 
