@@ -3,7 +3,9 @@ package com.example.jan.gps_koordinate;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Odgovor implements Parcelable{
+import java.io.Serializable;
+
+public class Odgovor implements Parcelable, Serializable{
     private Vprasanje vprasanje;
     private String odgovor;
     private long cas;

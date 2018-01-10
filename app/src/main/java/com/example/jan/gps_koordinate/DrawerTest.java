@@ -36,7 +36,7 @@ public class DrawerTest extends Activity implements NavigationView.OnNavigationI
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.home) {
+        if (id == R.id.nav_home) {
             NujnaPomocFragment fragment = new NujnaPomocFragment();
 
             FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -53,7 +53,7 @@ public class DrawerTest extends Activity implements NavigationView.OnNavigationI
 
             transaction.commit();
         } else if (id == R.id.nav_rezultati) {
-            RezultatiFragment fragment = new RezultatiFragment();
+            RezultatiSeznamFragment fragment = new RezultatiSeznamFragment();
 
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.replace(R.id.fragment_container, fragment);

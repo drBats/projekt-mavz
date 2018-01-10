@@ -4,12 +4,13 @@ package com.example.jan.gps_koordinate;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RezultatiKviza implements Parcelable{
+public class RezultatiKviza implements Parcelable, Serializable{
     private ArrayList<Odgovor> odgovori;
     private int stVprasanj, stPravilnih, stNepravilnih;
     private long casResevanja;

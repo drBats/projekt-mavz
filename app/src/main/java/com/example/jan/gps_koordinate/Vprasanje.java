@@ -4,9 +4,10 @@ package com.example.jan.gps_koordinate;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class Vprasanje implements Parcelable{
+public class Vprasanje implements Parcelable, Serializable{
     private int id;
     private String vprasanje;
     private String kategorija;
