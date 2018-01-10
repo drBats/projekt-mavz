@@ -36,10 +36,12 @@ public class RezultatiArrayAdapter extends ArrayAdapter {
 
         if(fileName.length >= 3){
             TextView datum = convertView.findViewById(R.id.text_datum);
+            datum.setTextSize(TypedValue.COMPLEX_UNIT_DIP,25);
             datum.setText(fileName[0] + " " + fileName[1]);
 
 
             TextView procenti = convertView.findViewById(R.id.text_procenti);
+            procenti.setTextSize(TypedValue.COMPLEX_UNIT_DIP,30);
             procenti.setText(fileName[2]);
             String temp=fileName[2].substring(0,fileName[2].length()-1);
             int procen=Integer.parseInt(temp);
