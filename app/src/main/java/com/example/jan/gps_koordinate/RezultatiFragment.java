@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -222,9 +223,20 @@ public class RezultatiFragment extends Fragment implements ActivityCompat.OnRequ
                 }
 
             }
+            try {
+                currentTime = Calendar.getInstance().getTime(); //dobimo čas reševanja
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-DD H:mm");
+                FileOutputStream fos = getActivity().openFileOutput(formatter.format(currentTime) + " " + Math.round(((float) stPravilnihOdgovorov / stVprasanj) * 100) + "%", Context.MODE_PRIVATE);
+                ObjectOutputStream os = new ObjectOutputStream(fos);
+                os.writeObject(rezultati);
+                os.close();
+                fos.close();
+            }catch(IOException ex){
+                Log.w("json", "Error writing " + file, ex);
+            }
             try{
                 String[] myStringArray = new String[rezultati.getStVprasanj()];
-                currentTime=Calendar.getInstance().getTime(); //dobimo čas reševanja
+
                 outputStream = new FileOutputStream(file, true);
 
                 for(int i = 0; i < odgovori.size(); i++){
@@ -269,12 +281,7 @@ public class RezultatiFragment extends Fragment implements ActivityCompat.OnRequ
                 String vrstica = rezultati.getStVprasanj() + ", " + rezultati.getStPravilnih() + ", " + rezultati.getStNepravilnih() + ", " + rezultati.getAvgKategorija() + ", " + rezultati.getDiscCasResevanja() + ", " + rezultati.getAvgTezavnost() + ", " + rezultati.klasificiraj() + "\n";
                 outputStream.write(vrstica.getBytes());
                 outputStream.close();
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-DD H:mm");
-                FileOutputStream fos = getActivity().openFileOutput(formatter.format(currentTime)+" "+Math.round(((float)stPravilnihOdgovorov / stVprasanj) * 100) + "%", Context.MODE_PRIVATE);
-                ObjectOutputStream os = new ObjectOutputStream(fos);
-                os.writeObject(odgovori);
-                os.close();
-                fos.close();
+
 
                 /* BRANJE
                 FileInputStream fis= this.openFileInput(filename);
