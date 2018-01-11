@@ -101,19 +101,19 @@ public class RezultatiKviza implements Parcelable, Serializable{
             skupnaTezavnost += count;
         }
 
-        if(skupnaTezavnost >= 20 && skupnaTezavnost < 26){
+        if(skupnaTezavnost >= 10 && skupnaTezavnost < 13){
             return "zelo_lahko";
         }
-        else if(skupnaTezavnost >= 26 && skupnaTezavnost < 35){
+        else if(skupnaTezavnost >= 13 && skupnaTezavnost < 17){
             return "lahko";
         }
-        else if(skupnaTezavnost >= 35 && skupnaTezavnost < 45){
+        else if(skupnaTezavnost >= 17 && skupnaTezavnost < 22){
             return "srednje";
         }
-        else if(skupnaTezavnost >= 45 && skupnaTezavnost < 55){
+        else if(skupnaTezavnost >= 22 && skupnaTezavnost < 27){
             return "težko";
         }
-        else if(skupnaTezavnost >= 55 && skupnaTezavnost <= 60){
+        else if(skupnaTezavnost >= 27 && skupnaTezavnost <= 30){
             return "zelo_težko";
         }
 

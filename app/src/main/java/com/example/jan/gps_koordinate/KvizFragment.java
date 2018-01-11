@@ -39,7 +39,7 @@ public class KvizFragment extends Fragment implements View.OnClickListener {
     private int st_vprasanja=1;
 
     private static int ST_VPRASANJ_SKUPAJ = 60;
-    private static int ST_VPRASANJ_KVIZ = 20;
+    private static int ST_VPRASANJ_KVIZ = 10;
 
     private long startTime, endTime;
     private boolean started;
