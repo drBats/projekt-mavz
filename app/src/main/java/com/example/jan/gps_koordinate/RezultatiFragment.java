@@ -135,22 +135,22 @@ public class RezultatiFragment extends Fragment implements ActivityCompat.OnRequ
             }catch(IOException ex){
                 Log.w("json", "Error writing " + file, ex);
             }
-            View view = inflater.inflate(R.layout.fragment_rezultati, null);
+            //View view = inflater.inflate(R.layout.fragment_rezultati, null);
             int procenti_resevanja=Math.round(((float)stPravilnihOdgovorov / stVprasanj) * 100);
-            ((TextView) view.findViewById(R.id.pravilnost_resevanja)).setText("VAS PROCENT RESEVANJA: "+procenti_resevanja+"%");
+            ((TextView) rootView.findViewById(R.id.pravilnost_resevanja)).setText("VAS PROCENT RESEVANJA: "+procenti_resevanja+"%");
             if(procenti_resevanja<50) {
-                ((TextView) view.findViewById(R.id.pravilnost_resevanja)).setTextColor(Color.RED);
+                ((TextView) rootView.findViewById(R.id.pravilnost_resevanja)).setTextColor(Color.RED);
             } else if (procenti_resevanja<70){
-                ((TextView) view.findViewById(R.id.pravilnost_resevanja)).setTextColor(Color.rgb(255,165,0));
+                ((TextView) rootView.findViewById(R.id.pravilnost_resevanja)).setTextColor(Color.rgb(255,165,0));
             } else {
-                ((TextView) view.findViewById(R.id.pravilnost_resevanja)).setTextColor(Color.GREEN);
+                ((TextView) rootView.findViewById(R.id.pravilnost_resevanja)).setTextColor(Color.GREEN);
             }
             try{
                 outputStream = new FileOutputStream(file, true);
                 for(int i = 0; i < odgovori.size(); i++) {
                     Vprasanje vprasanje = odgovori.get(i).getVprasanje();
 
-                    view = inflater.inflate(R.layout.layout_odgovor, null);
+                    View view = inflater.inflate(R.layout.layout_odgovor, null);
                     if (i == 0)
                     {
 
