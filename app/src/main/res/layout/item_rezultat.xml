@@ -8,6 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="8"
+        android:textSize="25dip"
         android:text="XXXX-XX-XX XX:XX"/>
 
     <TextView
@@ -15,6 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="2"
+        android:textSize="30dip"
         android:text="100%"/>
 
 </LinearLayout>

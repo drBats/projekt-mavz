@@ -135,23 +135,25 @@ public class RezultatiFragment extends Fragment implements ActivityCompat.OnRequ
             }catch(IOException ex){
                 Log.w("json", "Error writing " + file, ex);
             }
+            View view = inflater.inflate(R.layout.fragment_rezultati, null);
+            int procenti_resevanja=Math.round(((float)stPravilnihOdgovorov / stVprasanj) * 100);
+            ((TextView) view.findViewById(R.id.pravilnost_resevanja)).setText("VAS PROCENT RESEVANJA: "+procenti_resevanja+"%");
+            if(procenti_resevanja<50) {
+                ((TextView) view.findViewById(R.id.pravilnost_resevanja)).setTextColor(Color.RED);
+            } else if (procenti_resevanja<70){
+                ((TextView) view.findViewById(R.id.pravilnost_resevanja)).setTextColor(Color.rgb(255,165,0));
+            } else {
+                ((TextView) view.findViewById(R.id.pravilnost_resevanja)).setTextColor(Color.GREEN);
+            }
             try{
                 outputStream = new FileOutputStream(file, true);
                 for(int i = 0; i < odgovori.size(); i++) {
                     Vprasanje vprasanje = odgovori.get(i).getVprasanje();
 
-                    View view = inflater.inflate(R.layout.layout_odgovor, null);
+                    view = inflater.inflate(R.layout.layout_odgovor, null);
                     if (i == 0)
                     {
-                        int procenti_resevanja=Math.round(((float)stPravilnihOdgovorov / stVprasanj) * 100);
-                        ((TextView) view.findViewById(R.id.pravilnost_resevanja)).setText("VAS PROCENT RESEVANJA: "+procenti_resevanja+"%");
-                        if(procenti_resevanja<50) {
-                            ((TextView) view.findViewById(R.id.pravilnost_resevanja)).setTextColor(Color.RED);
-                        } else if (procenti_resevanja<70){
-                            ((TextView) view.findViewById(R.id.pravilnost_resevanja)).setTextColor(Color.rgb(255,165,0));
-                        } else {
-                            ((TextView) view.findViewById(R.id.pravilnost_resevanja)).setTextColor(Color.GREEN);
-                        }
+
                     }
                     ((TextView) view.findViewById(R.id.vprasanje)).setText(i+1+". "+vprasanje.toString());
                     ((TextView) view.findViewById(R.id.odgovor_a)).setText(vprasanje.getOdgovori().get("a"));
