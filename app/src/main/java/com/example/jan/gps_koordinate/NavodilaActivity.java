@@ -23,6 +23,16 @@ public class NavodilaActivity extends AppCompatActivity {
             case 1:
                 txtNaslov.setText("Oživljanje");
                 txtText.setText(R.string.ozivljanje);
+                break;
+            case 2:
+                txtNaslov.setText("Zlomi");
+                txtText.setText(R.string.Zlomi);
+                break;
+            case 3:
+                txtNaslov.setText("Krvavitve");
+                txtText.setText(R.string.Krvavitve);
+                break;
+
         }
 
 
