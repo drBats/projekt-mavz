@@ -27,9 +27,7 @@ public class Pospeskometer extends AppCompatActivity implements SensorEventListe
     int poz = 0;
     int prev = 0;
 
-    double time_now, time_before;
-    double time_first=0, times_clicked=0;
-    double BPM, tocno=0;
+    double BPM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +40,6 @@ public class Pospeskometer extends AppCompatActivity implements SensorEventListe
         senzor = manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
         manager.registerListener(this, senzor, SensorManager.SENSOR_DELAY_NORMAL);
-
     }
 
     @Override
@@ -67,21 +64,35 @@ public class Pospeskometer extends AppCompatActivity implements SensorEventListe
                         pospesek[2] * pospesek[2]);
 
        if(amplituda > 1){
-           if(pospesek[2] < -0.4){
+           if(pospesek[2] < -0.8){
                poz = 1;
+               bpm.setText("DOWN");
                poTime1 = System.currentTimeMillis();
                if(prev != poz){
                    BPM = 60 / ((poTime1 - poTime2)/1000);
-                   bpm.setText(Double.toString(BPM));
+                   //bpm.setText(Float.toString(poTime1 - poTime2));
                }
                prev=poz;
                poTime2 = poTime1;
            }
-           else if(pospesek[2] > 0.4){
+           else if(pospesek[2] > 0.8){
                prev = -1;
+               bpm.setText("UP");
            }
        }
     }
+    /*add(double x) {
+        total += x;
+        addToQueue(x);
+        if (queueSize > 50) {
+            total -= removeLastFromQueue();
+        } else {
+            count++;
+        }
+    }*/
+    /*double getAverage() {
+        return total / count;
+    }*/
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
