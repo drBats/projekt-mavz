@@ -33,6 +33,7 @@
         <activity android:name=".DrawerTest">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -43,10 +44,12 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCBap6rKd1n1dAp9oBqL8jFOeh4wFPWmo8" />
+
         <activity android:name=".PopUp" />
         <activity android:name=".SimulacijeFragment" />
         <activity android:name=".OzivljanjeActivity" />
-        <activity android:name=".NavodilaActivity"></activity>
+        <activity android:name=".NavodilaActivity" />
+        <activity android:name=".Pospeskometer"></activity>
     </application>
 
 </manifest>

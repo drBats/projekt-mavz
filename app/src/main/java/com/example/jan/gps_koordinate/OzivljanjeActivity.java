@@ -13,6 +13,7 @@ import android.widget.TextView;
 public class OzivljanjeActivity extends AppCompatActivity {
 
     ImageButton btnOzivljanje;
+    Button btnPospeskometer;
     FloatingActionButton fab;
     TextView text, txtNatancnost;
     double time_now, time_before;
@@ -31,6 +32,7 @@ public class OzivljanjeActivity extends AppCompatActivity {
         text = (TextView)findViewById(R.id.textView2);
         txtNatancnost = (TextView)findViewById(R.id.textNatancnost);
         fab = (FloatingActionButton)findViewById(R.id.fab);
+        btnPospeskometer =(Button)findViewById(R.id.btnPospesko);
 
         btnOzivljanje.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +70,14 @@ public class OzivljanjeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(OzivljanjeActivity.this, NavodilaActivity.class);
                 i.putExtra("id", 1);
+                startActivity(i);
+            }
+        });
+
+        btnPospeskometer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(OzivljanjeActivity.this, Pospeskometer.class);
                 startActivity(i);
             }
         });
