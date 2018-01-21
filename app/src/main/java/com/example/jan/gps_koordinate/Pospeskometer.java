@@ -10,6 +10,8 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.widget.TextView;
 import java.lang.Math;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Pospeskometer extends AppCompatActivity implements SensorEventListener {
 
@@ -23,11 +25,14 @@ public class Pospeskometer extends AppCompatActivity implements SensorEventListe
     float alpha = 0.3f;
     float amplituda;
     float poTime1=0, poTime2=0;
+    float P=0;
 
     int poz = 0;
     int prev = 0;
 
     double BPM;
+
+    float[] vrsta = new float[3];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,36 +68,33 @@ public class Pospeskometer extends AppCompatActivity implements SensorEventListe
                         pospesek[1] * pospesek[1] +
                         pospesek[2] * pospesek[2]);
 
-       if(amplituda > 1){
-           if(pospesek[2] < -0.8){
-               poz = 1;
-               bpm.setText("DOWN");
-               poTime1 = System.currentTimeMillis();
-               if(prev != poz){
-                   BPM = 60 / ((poTime1 - poTime2)/1000);
-                   //bpm.setText(Float.toString(poTime1 - poTime2));
-               }
-               prev=poz;
-               poTime2 = poTime1;
-           }
-           else if(pospesek[2] > 0.8){
-               prev = -1;
-               bpm.setText("UP");
-           }
-       }
-    }
-    /*add(double x) {
-        total += x;
-        addToQueue(x);
-        if (queueSize > 50) {
-            total -= removeLastFromQueue();
-        } else {
-            count++;
+        add(pospesek[2]);
+
+        if(amplituda > 1){
+            if(P < -0.4){
+                poz = 1;
+                bpm.setText("UP");
+                poTime1 = System.currentTimeMillis();
+                if(prev != poz){
+                    BPM = 60 / ((poTime1 - poTime2)/1000);
+                    //bpm.setText(Float.toString(poTime1 - poTime2));
+                }
+                prev=poz;
+                poTime2 = poTime1;
+            }
+            else if(P > 0.4){
+                prev = -1;
+                bpm.setText("DOWN");
+            }
         }
-    }*/
-    /*double getAverage() {
-        return total / count;
-    }*/
+    }
+    private void add(float x) {
+        vrsta[0] = vrsta[1];
+        vrsta[1] = vrsta[2];
+        vrsta[2] = x;
+
+        P=(vrsta[0]+vrsta[1]+vrsta[2])/3;
+    }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
