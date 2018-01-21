@@ -10,6 +10,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.widget.TextView;
 import java.lang.Math;
+import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -24,7 +25,7 @@ public class Pospeskometer extends AppCompatActivity implements SensorEventListe
     float[] pospesek = new float[3];
     float alpha = 0.3f;
     float amplituda;
-    float poTime1=0, poTime2=0;
+    double poTime1=0, poTime2=0;
     float P=0;
 
     int poz = 0;
@@ -71,20 +72,20 @@ public class Pospeskometer extends AppCompatActivity implements SensorEventListe
         add(pospesek[2]);
 
         if(amplituda > 1){
-            if(P < -0.4){
+            if(P < 0.4){
                 poz = 1;
-                bpm.setText("UP");
-                poTime1 = System.currentTimeMillis();
-                if(prev != poz){
-                    BPM = 60 / ((poTime1 - poTime2)/1000);
-                    //bpm.setText(Float.toString(poTime1 - poTime2));
+                if(prev == -1) {
+                    //bpm.setText("UP");
+                    poTime1 = System.currentTimeMillis();
+                    BPM = 60 / ((poTime1 - poTime2) / 1000);
+                    bpm.setText("BPM:\n" + String.valueOf((int) BPM));
+                    prev = poz;
+                    poTime2 = poTime1;
                 }
-                prev=poz;
-                poTime2 = poTime1;
             }
-            else if(P > 0.4){
+            if(P > -0.4){
                 prev = -1;
-                bpm.setText("DOWN");
+                //bpm.setText("DOWN");
             }
         }
     }
@@ -98,6 +99,6 @@ public class Pospeskometer extends AppCompatActivity implements SensorEventListe
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
-
+        //Ni uporabljeno
     }
 }
