@@ -75,17 +75,16 @@ public class Pospeskometer extends AppCompatActivity implements SensorEventListe
             if(P < 0.4){
                 poz = 1;
                 if(prev == -1) {
-                    //bpm.setText("UP");
                     poTime1 = System.currentTimeMillis();
                     BPM = 60 / ((poTime1 - poTime2) / 1000);
-                    bpm.setText("BPM:\n" + String.valueOf((int) BPM));
+                    bpm.setText("BPM:\n" + String.valueOf((int) BPM) + "\nGesta: GOR");
                     prev = poz;
                     poTime2 = poTime1;
                 }
             }
             if(P > -0.4){
                 prev = -1;
-                //bpm.setText("DOWN");
+                bpm.setText("BPM:\n" + String.valueOf((int) BPM) + "\nGesta: DOL");
             }
         }
     }
